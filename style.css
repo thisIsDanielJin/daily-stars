@@ -150,6 +150,29 @@ body {
     box-shadow: 0 8px 24px rgba(140, 100, 200, 0.12);
 }
 
+.score-card--best {
+    background: rgba(255, 255, 255, 0.7);
+    border: 1.5px solid rgba(255, 215, 100, 0.5);
+    box-shadow: 0 4px 20px rgba(255, 200, 80, 0.15), inset 0 0 20px rgba(255, 230, 150, 0.1);
+}
+
+.score-card--best:hover {
+    box-shadow: 0 8px 28px rgba(255, 200, 80, 0.2), inset 0 0 20px rgba(255, 230, 150, 0.1);
+}
+
+.best-badge {
+    display: inline-block;
+    font-size: 0.7rem;
+    font-weight: 700;
+    color: #b8860b;
+    background: linear-gradient(135deg, rgba(255, 230, 150, 0.5), rgba(255, 215, 100, 0.3));
+    padding: 3px 10px;
+    border-radius: 20px;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    margin-bottom: 8px;
+}
+
 .score-card-header {
     display: flex;
     justify-content: space-between;

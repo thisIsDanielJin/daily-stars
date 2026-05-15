@@ -71,36 +71,36 @@
     };
 
     const quotes = [
-        { text: "The wound is the place where the Light enters you.", author: "Rumi" },
         { text: "I must be a mermaid. I have no fear of depths and a great fear of shallow living.", author: "Anaïs Nin" },
-        { text: "She was powerful not because she wasn't scared but because she went on so strongly, despite the fear.", author: "Atticus" },
-        { text: "I am not what happened to me. I am what I choose to become.", author: "Carl Jung" },
-        { text: "The only way to do great work is to love what you do.", author: "Steve Jobs" },
-        { text: "In the middle of difficulty lies opportunity.", author: "Albert Einstein" },
-        { text: "You yourself, as much as anybody in the entire universe, deserve your love and affection.", author: "Buddha" },
-        { text: "The privilege of a lifetime is to become who you truly are.", author: "Carl Jung" },
-        { text: "I have sea foam in my veins, I understand the language of waves.", author: "Jean Cocteau" },
-        { text: "One day you will tell your story of how you overcame what you went through and it will be someone else's survival guide.", author: "Brené Brown" },
-        { text: "She remembered who she was and the game changed.", author: "Lalah Delia" },
-        { text: "The cosmos is within us. We are made of star-stuff.", author: "Carl Sagan" },
-        { text: "What lies behind us and what lies before us are tiny matters compared to what lies within us.", author: "Ralph Waldo Emerson" },
-        { text: "You are not a drop in the ocean. You are the entire ocean in a drop.", author: "Rumi" },
-        { text: "And suddenly you know: It's time to start something new and trust the magic of beginnings.", author: "Meister Eckhart" },
-        { text: "The most beautiful things in the world cannot be seen or touched, they are felt with the heart.", author: "Antoine de Saint-Exupéry" },
-        { text: "Stars can't shine without darkness.", author: "D.H. Sidebottom" },
-        { text: "Be soft. Do not let the world make you hard.", author: "Kurt Vonnegut" },
-        { text: "She is water. Powerful enough to drown you, soft enough to cleanse you, deep enough to save you.", author: "Adrian Michael" },
-        { text: "Dwell on the beauty of life. Watch the stars, and see yourself running with them.", author: "Marcus Aurelius" },
         { text: "I am my own muse. I am the subject I know best.", author: "Frida Kahlo" },
-        { text: "The soul always knows what to do to heal itself. The challenge is to silence the mind.", author: "Caroline Myss" },
-        { text: "You don't have to be perfect to be amazing.", author: "Unknown" },
         { text: "Everything you can imagine is real.", author: "Pablo Picasso" },
-        { text: "Normal is not something to aspire to, it's something to get away from.", author: "Jodie Foster" },
-        { text: "I am a forest, and a night of dark trees: but he who is not afraid of my darkness, will find banks full of roses under my cypresses.", author: "Friedrich Nietzsche" },
-        { text: "The question isn't who is going to let me; it's who is going to stop me.", author: "Ayn Rand" },
-        { text: "Maybe the journey isn't so much about becoming anything. Maybe it's about unbecoming everything that isn't really you.", author: "Paulo Coelho" },
         { text: "I took a deep breath and listened to the old brag of my heart. I am, I am, I am.", author: "Sylvia Plath" },
-        { text: "And those who were seen dancing were thought to be insane by those who could not hear the music.", author: "Nietzsche" }
+        { text: "I have sea foam in my veins, I understand the language of waves.", author: "Jean Cocteau" },
+        { text: "One must still have chaos in oneself to be able to give birth to a dancing star.", author: "Friedrich Nietzsche" },
+        { text: "I dream my painting and I paint my dream.", author: "Vincent van Gogh" },
+        { text: "The earth has music for those who listen.", author: "William Shakespeare" },
+        { text: "I would always rather be happy than dignified.", author: "Charlotte Brontë" },
+        { text: "There is no gate, no lock, no bolt that you can set upon the freedom of my mind.", author: "Virginia Woolf" },
+        { text: "I have been bent and broken, but I hope into a better shape.", author: "Charles Dickens" },
+        { text: "We are all in the gutter, but some of us are looking at the stars.", author: "Oscar Wilde" },
+        { text: "The desire to create is one of the deepest yearnings of the human soul.", author: "Dieter F. Uchtdorf" },
+        { text: "I put my heart and my soul into my work, and have lost my mind in the process.", author: "Vincent van Gogh" },
+        { text: "In the depth of winter, I finally learned that within me there lay an invincible summer.", author: "Albert Camus" },
+        { text: "The most courageous act is still to think for yourself. Aloud.", author: "Coco Chanel" },
+        { text: "I restore myself when I'm alone.", author: "Marilyn Monroe" },
+        { text: "Music is the shorthand of emotion.", author: "Leo Tolstoy" },
+        { text: "An artist is not paid for his labor but for his vision.", author: "James McNeill Whistler" },
+        { text: "I am not afraid of storms, for I am learning how to sail my ship.", author: "Louisa May Alcott" },
+        { text: "The world breaks everyone, and afterward, many are strong at the broken places.", author: "Ernest Hemingway" },
+        { text: "Art is not what you see, but what you make others see.", author: "Edgar Degas" },
+        { text: "I dwell in possibility.", author: "Emily Dickinson" },
+        { text: "Life is not a problem to be solved, but a reality to be experienced.", author: "Søren Kierkegaard" },
+        { text: "To live is the rarest thing in the world. Most people exist, that is all.", author: "Oscar Wilde" },
+        { text: "I am seeking. I am striving. I am in it with all my heart.", author: "Vincent van Gogh" },
+        { text: "The only journey is the one within.", author: "Rainer Maria Rilke" },
+        { text: "A woman must have money and a room of her own if she is to write fiction.", author: "Virginia Woolf" },
+        { text: "You must do the thing you think you cannot do.", author: "Eleanor Roosevelt" },
+        { text: "Beauty is not in the face; beauty is a light in the heart.", author: "Kahlil Gibran" }
     ];
 
     function seededRandom(seed) {
@@ -169,8 +169,13 @@
 
     function renderScores(scores) {
         const container = document.getElementById('scores');
-        container.innerHTML = scores.map((s, i) => `
-            <div class="score-card" style="animation-delay: ${i * 0.1}s; --card-accent: ${s.accent}; --card-accent-end: ${s.accentEnd}; --bounce-delay: ${i * 0.4}s">
+        const maxScore = Math.max(...scores.map(s => s.score));
+
+        container.innerHTML = scores.map((s, i) => {
+            const isBest = s.score === maxScore;
+            return `
+            <div class="score-card${isBest ? ' score-card--best' : ''}" style="animation-delay: ${i * 0.1}s; --card-accent: ${s.accent}; --card-accent-end: ${s.accentEnd}; --bounce-delay: ${i * 0.4}s">
+                ${isBest ? '<span class="best-badge">★ your superpower today</span>' : ''}
                 <div class="score-card-header">
                     <div class="score-card-title">
                         <span class="emoji">${s.emoji}</span>
@@ -183,7 +188,7 @@
                 </div>
                 <p class="score-flavor">${s.flavor}</p>
             </div>
-        `).join('');
+        `}).join('');
 
         requestAnimationFrame(() => {
             setTimeout(() => {
