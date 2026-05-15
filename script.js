@@ -1,106 +1,106 @@
 (function () {
     const categories = [
-        { name: 'Love', emoji: '❤️', key: 'love' },
-        { name: 'Health', emoji: '🌿', key: 'health' },
-        { name: 'Spiritual', emoji: '✨', key: 'spiritual' },
-        { name: 'Career', emoji: '🚀', key: 'career' },
-        { name: 'Creativity', emoji: '🎨', key: 'creativity' }
+        { name: 'Love', emoji: '❤️', key: 'love', accent: '#f7a3b8', accentEnd: '#f5c3d7' },
+        { name: 'Health', emoji: '🌿', key: 'health', accent: '#7dd4a0', accentEnd: '#b8e8c9' },
+        { name: 'Spiritual', emoji: '🔮', key: 'spiritual', accent: '#b8a3f7', accentEnd: '#d4c3ff' },
+        { name: 'Career', emoji: '⚡', key: 'career', accent: '#f7c948', accentEnd: '#fde68a' },
+        { name: 'Creativity', emoji: '🎨', key: 'creativity', accent: '#7ecbf5', accentEnd: '#bde4fa' }
     ];
 
     const flavorTexts = {
         love: [
-            "Love surrounds you like warm ocean waves today",
-            "Your heart is radiating beautiful energy",
-            "Someone is thinking of you right now",
-            "The connection you share grows stronger each day",
-            "Your kindness creates ripples of love everywhere",
-            "Today your heart is especially magnetic",
-            "Love flows to you effortlessly",
-            "You deserve every ounce of love coming your way",
-            "The stars align for your deepest connections",
-            "Your loving energy lights up every room"
+            "The kind of day where even strangers smile at you",
+            "Your warmth is contagious — pass it around",
+            "Plot twist: someone's writing about you in their journal today",
+            "Main character energy in all your relationships",
+            "Your love language today? Just existing beautifully",
+            "Hearts don't skip beats for everyone — you're special",
+            "The universe shipped you with happiness today",
+            "Good vibes only, and your vibe check is immaculate",
+            "Love is literally orbiting you right now",
+            "You make people feel safe just by being near"
         ],
         health: [
-            "Your body feels strong and aligned today",
-            "Vitality flows through you like a gentle stream",
-            "Today is perfect for nurturing yourself",
-            "Your energy levels are beautifully balanced",
-            "The universe supports your wellbeing today",
-            "You radiate health and inner glow",
-            "Your body thanks you for being so kind to it",
-            "Everything in your body is working in harmony",
-            "Rest and movement both serve you perfectly today",
-            "You're glowing from the inside out"
+            "Your body is a wonderland and it knows what it's doing",
+            "Today's forecast: glowing skin and good energy",
+            "You woke up and chose thriving",
+            "Every cell in you is throwing a little party right now",
+            "Your energy today? Chef's kiss",
+            "The kind of day where even water tastes better",
+            "Your body is on your team — always has been",
+            "Stretch, breathe, conquer. In that order.",
+            "You're radiating that 'just had a great sleep' glow",
+            "Everything is flowing in rhythm today"
         ],
         spiritual: [
-            "Your intuition is crystal clear today",
-            "The universe is whispering secrets just for you",
-            "You're deeply connected to something greater",
-            "Trust the flow — it's carrying you somewhere beautiful",
-            "Your inner wisdom knows exactly what to do",
-            "Today the spiritual realm wraps you in light",
-            "Pisces energy amplifies your intuitive gifts",
-            "You're exactly where you're meant to be",
-            "The cosmos celebrates your unique spirit",
-            "Magic is closer than you think today"
+            "Your third eye is basically open for business",
+            "The universe left you a breadcrumb trail today — follow it",
+            "Your intuition? Louder than usual. Listen.",
+            "Something magical is trying to find you today",
+            "You're vibrating at a frequency that attracts miracles",
+            "The fish knows which current to swim — trust yours",
+            "Today the veil between you and your best life is thin",
+            "Your dreams last night? They meant something. Sit with it.",
+            "Cosmic downloads incoming — stay open",
+            "You're more connected than you realize right now"
         ],
         career: [
-            "Your ideas are brilliant and ready to bloom",
-            "Success is gravitating toward you today",
-            "Your talents are being noticed by the right people",
-            "Today brings unexpected professional blessings",
-            "Your hard work is creating beautiful momentum",
-            "Opportunities align with your deepest purpose",
-            "You're building something truly meaningful",
-            "The stars support your ambitions today",
-            "Your unique perspective is your superpower",
-            "Everything you touch turns to gold today"
+            "Main character arc: the glow-up chapter",
+            "Someone important is going to notice you today",
+            "Your brain is operating at 'genius bar' level today",
+            "Today's energy says: bold moves, no hesitation",
+            "You're building something bigger than you realize",
+            "The dots are connecting — even the ones you can't see yet",
+            "Your next great idea is closer than your phone",
+            "Quiet confidence is your superpower today",
+            "The kind of day where everything clicks into place",
+            "Future you is proud of what you're doing right now"
         ],
         creativity: [
-            "Your imagination is sparkling like the ocean today",
-            "Creative ideas flow to you like water",
-            "The muse is sitting right beside you",
-            "Today your creative spirit is unstoppable",
-            "Colors, words, and ideas dance around you",
-            "Your creative energy inspires everyone nearby",
-            "Something beautiful wants to be made by you today",
-            "Your Pisces creativity is at its peak",
-            "Let your imagination swim freely today",
-            "Every idea you have is worth exploring"
+            "Your brain is a Pinterest board of amazing ideas today",
+            "Everything you touch gets a little more beautiful",
+            "The muse didn't just visit — she moved in",
+            "Your creative energy could power a small city",
+            "Today's vibe: accidentally making art out of everything",
+            "You see the world in colors other people haven't named yet",
+            "Inspiration is stalking you in the best way",
+            "Your imagination said 'no limits' today",
+            "The ideas flowing through you deserve a standing ovation",
+            "Creating today isn't work — it's play"
         ]
     };
 
-    const affirmations = [
-        "You are worthy of all the beautiful things life has to offer.",
-        "The ocean of your potential has no shore.",
-        "You bring light to everyone around you simply by being yourself.",
-        "Today is full of possibility, and you are ready for all of it.",
-        "Your gentle strength moves mountains without making a sound.",
-        "The world is better because you're in it.",
-        "You flow gracefully through whatever comes your way.",
-        "Your dreams are valid and closer than you think.",
-        "Like water, you adapt and overcome with beauty and grace.",
-        "Every cell in your body vibrates with joy and purpose.",
-        "You are a gift to everyone who knows you.",
-        "The stars wrote something beautiful when they made you.",
-        "Trust yourself — your instincts are always guiding you home.",
-        "You deserve rest, joy, and every good thing today.",
-        "Your sensitivity is not weakness — it's your greatest power.",
-        "The universe conspires in your favor, always.",
-        "You are blooming exactly on schedule.",
-        "Your presence alone makes the world softer and kinder.",
-        "Today, everything flows in your direction.",
-        "You carry an ocean of love inside you — let it overflow.",
-        "The best version of today is already unfolding for you.",
-        "You are deeply loved, even in moments you forget it.",
-        "Your spirit shines like moonlight on water.",
-        "Everything you need is already within you.",
-        "You are the calm in the storm and the light in the dark.",
-        "Today honors you as much as you honor it.",
-        "Your heart knows the way — follow it fearlessly.",
-        "Like the tides, your strength returns again and again.",
-        "You make the ordinary feel magical.",
-        "The universe smiles when you smile."
+    const quotes = [
+        { text: "The wound is the place where the Light enters you.", author: "Rumi" },
+        { text: "I must be a mermaid. I have no fear of depths and a great fear of shallow living.", author: "Anaïs Nin" },
+        { text: "She was powerful not because she wasn't scared but because she went on so strongly, despite the fear.", author: "Atticus" },
+        { text: "I am not what happened to me. I am what I choose to become.", author: "Carl Jung" },
+        { text: "The only way to do great work is to love what you do.", author: "Steve Jobs" },
+        { text: "In the middle of difficulty lies opportunity.", author: "Albert Einstein" },
+        { text: "You yourself, as much as anybody in the entire universe, deserve your love and affection.", author: "Buddha" },
+        { text: "The privilege of a lifetime is to become who you truly are.", author: "Carl Jung" },
+        { text: "I have sea foam in my veins, I understand the language of waves.", author: "Jean Cocteau" },
+        { text: "One day you will tell your story of how you overcame what you went through and it will be someone else's survival guide.", author: "Brené Brown" },
+        { text: "She remembered who she was and the game changed.", author: "Lalah Delia" },
+        { text: "The cosmos is within us. We are made of star-stuff.", author: "Carl Sagan" },
+        { text: "What lies behind us and what lies before us are tiny matters compared to what lies within us.", author: "Ralph Waldo Emerson" },
+        { text: "You are not a drop in the ocean. You are the entire ocean in a drop.", author: "Rumi" },
+        { text: "And suddenly you know: It's time to start something new and trust the magic of beginnings.", author: "Meister Eckhart" },
+        { text: "The most beautiful things in the world cannot be seen or touched, they are felt with the heart.", author: "Antoine de Saint-Exupéry" },
+        { text: "Stars can't shine without darkness.", author: "D.H. Sidebottom" },
+        { text: "Be soft. Do not let the world make you hard.", author: "Kurt Vonnegut" },
+        { text: "She is water. Powerful enough to drown you, soft enough to cleanse you, deep enough to save you.", author: "Adrian Michael" },
+        { text: "Dwell on the beauty of life. Watch the stars, and see yourself running with them.", author: "Marcus Aurelius" },
+        { text: "I am my own muse. I am the subject I know best.", author: "Frida Kahlo" },
+        { text: "The soul always knows what to do to heal itself. The challenge is to silence the mind.", author: "Caroline Myss" },
+        { text: "You don't have to be perfect to be amazing.", author: "Unknown" },
+        { text: "Everything you can imagine is real.", author: "Pablo Picasso" },
+        { text: "Normal is not something to aspire to, it's something to get away from.", author: "Jodie Foster" },
+        { text: "I am a forest, and a night of dark trees: but he who is not afraid of my darkness, will find banks full of roses under my cypresses.", author: "Friedrich Nietzsche" },
+        { text: "The question isn't who is going to let me; it's who is going to stop me.", author: "Ayn Rand" },
+        { text: "Maybe the journey isn't so much about becoming anything. Maybe it's about unbecoming everything that isn't really you.", author: "Paulo Coelho" },
+        { text: "I took a deep breath and listened to the old brag of my heart. I am, I am, I am.", author: "Sylvia Plath" },
+        { text: "And those who were seen dancing were thought to be insane by those who could not hear the music.", author: "Nietzsche" }
     ];
 
     function seededRandom(seed) {
@@ -126,12 +126,18 @@
         return `${now.getFullYear()}-${now.getMonth() + 1}-${now.getDate()}`;
     }
 
+    function getFormattedDate() {
+        const now = new Date();
+        const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+        return now.toLocaleDateString('en-US', options);
+    }
+
     function getGreeting() {
         const hour = new Date().getHours();
-        if (hour < 12) return 'Good morning, Rong ♓';
-        if (hour < 17) return 'Good afternoon, Rong ♓';
-        if (hour < 21) return 'Good evening, Rong ♓';
-        return 'Sweet dreams, Rong ♓';
+        if (hour < 12) return 'Good morning, Rong';
+        if (hour < 17) return 'Good afternoon, Rong';
+        if (hour < 21) return 'Good evening, Rong';
+        return 'Sweet dreams, Rong';
     }
 
     function generateScores() {
@@ -153,18 +159,18 @@
         return scores;
     }
 
-    function getDailyAffirmation() {
+    function getDailyQuote() {
         const dateStr = getDateString();
-        const seed = hashString(dateStr + 'affirmation');
+        const seed = hashString(dateStr + 'quote');
         const rng = seededRandom(seed);
-        const index = Math.floor(rng() * affirmations.length);
-        return affirmations[index];
+        const index = Math.floor(rng() * quotes.length);
+        return quotes[index];
     }
 
     function renderScores(scores) {
         const container = document.getElementById('scores');
         container.innerHTML = scores.map((s, i) => `
-            <div class="score-card" style="animation-delay: ${i * 0.12}s">
+            <div class="score-card" style="animation-delay: ${i * 0.1}s; --card-accent: ${s.accent}; --card-accent-end: ${s.accentEnd}; --bounce-delay: ${i * 0.4}s">
                 <div class="score-card-header">
                     <div class="score-card-title">
                         <span class="emoji">${s.emoji}</span>
@@ -184,30 +190,35 @@
                 document.querySelectorAll('.score-bar').forEach((bar) => {
                     bar.style.width = bar.dataset.score + '%';
                 });
-            }, 100);
+            }, 200);
         });
     }
 
     function createBubbles() {
         const container = document.getElementById('bubbles');
-        const count = 15;
+        const count = 18;
 
         for (let i = 0; i < count; i++) {
             const bubble = document.createElement('div');
             bubble.className = 'bubble';
-            const size = Math.random() * 40 + 10;
+            const size = Math.random() * 30 + 8;
             bubble.style.width = size + 'px';
             bubble.style.height = size + 'px';
             bubble.style.left = Math.random() * 100 + '%';
-            bubble.style.animationDuration = (Math.random() * 12 + 8) + 's';
-            bubble.style.animationDelay = (Math.random() * 10) + 's';
+            bubble.style.animationDuration = (Math.random() * 15 + 10) + 's';
+            bubble.style.animationDelay = (Math.random() * 12) + 's';
             container.appendChild(bubble);
         }
     }
 
     function init() {
         document.getElementById('greeting').textContent = getGreeting();
-        document.getElementById('affirmation').textContent = getDailyAffirmation();
+        document.getElementById('date').textContent = getFormattedDate();
+
+        const quote = getDailyQuote();
+        document.getElementById('quote').textContent = quote.text;
+        document.getElementById('quote-author').textContent = '— ' + quote.author;
+
         renderScores(generateScores());
         createBubbles();
     }
