@@ -400,12 +400,13 @@ body.soften .pisces-symbol {
 
 .mood-label {
     text-align: center;
-    font-size: 0.7rem;
-    font-weight: 600;
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-size: 0.85rem;
+    font-weight: 400;
+    font-style: italic;
     color: #b09ac7;
-    letter-spacing: 1.4px;
-    text-transform: uppercase;
-    margin-bottom: 2px;
+    letter-spacing: 0.5px;
+    margin-bottom: 0;
     animation: fade-in 0.8s ease-out 0.25s backwards;
 }
 
@@ -415,7 +416,7 @@ body.soften .pisces-symbol {
     font-size: 4.6rem;
     font-weight: 500;
     font-style: italic;
-    margin: 8px 0 28px;
+    margin: 0 0 28px;
     background: linear-gradient(135deg, #7c4dbd, #5ba8d4, #c5a3f7);
     background-size: 200% 200%;
     -webkit-background-clip: text;
