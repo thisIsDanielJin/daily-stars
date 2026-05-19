@@ -134,6 +134,71 @@ body {
     margin-bottom: 4px;
     animation: gentle-glow 3s ease-in-out infinite, wiggle 6s ease-in-out infinite;
     filter: drop-shadow(0 0 12px rgba(180, 140, 255, 0.5));
+    cursor: pointer;
+    user-select: none;
+    -webkit-user-select: none;
+    transition: transform 0.15s ease;
+}
+
+.pisces-symbol:active {
+    transform: scale(0.92);
+}
+
+.swim-fish {
+    position: fixed;
+    font-size: 28px;
+    pointer-events: none;
+    z-index: 5;
+    opacity: 0;
+    animation: swim-across linear forwards;
+    will-change: transform, opacity;
+}
+
+@keyframes swim-across {
+    0% {
+        opacity: 0;
+        transform: translate(0, 0) scaleX(var(--swim-flip, 1)) rotate(0deg);
+    }
+    15% {
+        opacity: 1;
+    }
+    85% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+        transform: translate(var(--swim-x, 300px), var(--swim-y, 0)) scaleX(var(--swim-flip, 1)) rotate(0deg);
+    }
+}
+
+.hidden-phrase {
+    font-family: 'Quicksand', cursive;
+    font-style: italic;
+    font-size: 1.15rem;
+    color: #b8860b;
+    margin: 4px 0 6px;
+    opacity: 0;
+    transform: translateY(-4px);
+    transition: opacity 0.9s ease, transform 0.9s ease;
+    text-shadow: 0 0 14px rgba(255, 215, 100, 0.4);
+    letter-spacing: 0.4px;
+    pointer-events: none;
+    min-height: 1.4em;
+}
+
+.hidden-phrase--visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+body.soften .bubbles {
+    filter: blur(2px) brightness(1.1);
+    transition: filter 0.8s ease;
+}
+
+body.soften .pisces-symbol {
+    filter: drop-shadow(0 0 24px rgba(255, 200, 120, 0.8));
+    transition: filter 0.8s ease;
 }
 
 @keyframes gentle-glow {

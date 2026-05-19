@@ -268,6 +268,70 @@
         }
     }
 
+    function isBirthday() {
+        const now = new Date();
+        return now.getMonth() + 1 === PERSONAL.birthday.month && now.getDate() === PERSONAL.birthday.day;
+    }
+
+    function isAnniversary() {
+        const now = new Date();
+        return now.getMonth() + 1 === PERSONAL.anniversary.month && now.getDate() === PERSONAL.anniversary.day;
+    }
+
+    function spawnSwimFish(originRect) {
+        const fish = document.createElement('span');
+        fish.className = 'swim-fish';
+        fish.textContent = Math.random() < 0.5 ? '🐟' : '🐠';
+        const startX = originRect ? originRect.left + originRect.width / 2 : window.innerWidth / 2;
+        const startY = originRect ? originRect.top + originRect.height / 2 : 100;
+        const driftY = (Math.random() - 0.5) * 120;
+        const direction = Math.random() < 0.5 ? -1 : 1;
+        const duration = 2400 + Math.random() * 1200;
+        fish.style.left = startX + 'px';
+        fish.style.top = startY + 'px';
+        fish.style.setProperty('--swim-x', `${direction * (window.innerWidth * 0.7 + 100)}px`);
+        fish.style.setProperty('--swim-y', `${driftY}px`);
+        fish.style.setProperty('--swim-flip', direction === -1 ? '-1' : '1');
+        fish.style.animationDuration = duration + 'ms';
+        document.body.appendChild(fish);
+        setTimeout(() => fish.remove(), duration + 100);
+    }
+
+    function showHiddenPhrase() {
+        const el = document.getElementById('hidden-phrase');
+        if (!el) return;
+        el.textContent = isBirthday() ? PERSONAL.hiddenPhraseBirthday : PERSONAL.hiddenPhrase;
+        el.classList.add('hidden-phrase--visible');
+        document.body.classList.add('soften');
+        try {
+            const found = parseInt(localStorage.getItem('daily-stars:secrets') || '0', 10);
+            localStorage.setItem('daily-stars:secrets', String(found + 1));
+        } catch (e) { /* ignore */ }
+        setTimeout(() => {
+            el.classList.remove('hidden-phrase--visible');
+            document.body.classList.remove('soften');
+        }, 6000);
+    }
+
+    function wirePiscesTaps() {
+        const glyph = document.getElementById('pisces-symbol');
+        if (!glyph) return;
+        const taps = [];
+        const WINDOW_MS = 3000;
+        const REQUIRED = 5;
+
+        glyph.addEventListener('click', () => {
+            spawnSwimFish(glyph.getBoundingClientRect());
+            const now = Date.now();
+            taps.push(now);
+            while (taps.length && now - taps[0] > WINDOW_MS) taps.shift();
+            if (taps.length >= REQUIRED) {
+                taps.length = 0;
+                showHiddenPhrase();
+            }
+        });
+    }
+
     function renderScores(scores) {
         const container = document.getElementById('scores');
         const maxScore = Math.max(...scores.map(s => s.score));
@@ -336,6 +400,7 @@
         renderScores(generateScores());
         createBubbles();
         renderStreak();
+        wirePiscesTaps();
     }
 
     init();
