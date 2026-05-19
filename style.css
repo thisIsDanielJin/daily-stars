@@ -306,10 +306,12 @@ body.soften .pisces-symbol {
 }
 
 .greeting {
-    font-size: 1.5rem;
-    font-weight: 700;
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-size: 2rem;
+    font-weight: 500;
     color: #5a3d7a;
     margin-bottom: 6px;
+    letter-spacing: 0.3px;
 }
 
 .date {
@@ -372,16 +374,19 @@ body.soften .pisces-symbol {
 }
 
 .mood-word {
+    font-family: 'Cormorant Garamond', Georgia, serif;
     text-align: center;
-    font-size: 2rem;
-    font-weight: 700;
-    margin-bottom: 24px;
+    font-size: 4.6rem;
+    font-weight: 500;
+    font-style: italic;
+    margin: 8px 0 28px;
     background: linear-gradient(135deg, #7c4dbd, #5ba8d4, #c5a3f7);
     background-size: 200% 200%;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
-    letter-spacing: 1px;
+    letter-spacing: -0.5px;
+    line-height: 1.05;
     animation: fade-in 0.9s ease-out 0.3s backwards, mood-shimmer 8s ease-in-out infinite;
 }
 
@@ -526,7 +531,8 @@ body.soften .pisces-symbol {
 }
 
 .score-flavor {
-    font-size: 1rem;
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-size: 1.2rem;
     color: #7c4dbd;
     font-style: italic;
     font-weight: 500;
@@ -575,12 +581,14 @@ body.soften .pisces-symbol {
 }
 
 .quote-text {
-    font-size: 1rem;
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-size: 1.25rem;
     color: #5a3d7a;
     font-weight: 500;
-    line-height: 1.6;
-    margin-bottom: 10px;
+    line-height: 1.55;
+    margin-bottom: 12px;
     font-style: italic;
+    letter-spacing: 0.2px;
 }
 
 .quote-author {
@@ -594,9 +602,15 @@ body.soften .pisces-symbol {
         padding: 32px 16px;
     }
     .greeting {
-        font-size: 1.3rem;
+        font-size: 1.7rem;
+    }
+    .mood-word {
+        font-size: 3.6rem;
     }
     .pisces-symbol {
         font-size: 44px;
+    }
+    .quote-text {
+        font-size: 1.1rem;
     }
 }
