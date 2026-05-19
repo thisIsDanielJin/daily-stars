@@ -7,10 +7,11 @@
     };
 
     const moods = [
-        'Soft', 'Electric', 'Tender', 'Wild', 'Lucid', 'Glowing', 'Tidal',
-        'Quiet', 'Radiant', 'Open', 'Floating', 'Bright', 'Magnetic',
-        'Dreamy', 'Sparkling', 'Anchored', 'Curious', 'Velvet', 'Sun-kissed',
-        'Moonlit', 'Whimsical', 'Honeyed', 'Crystalline', 'Daring', 'Soaring'
+        'Tidal', 'Moonlit', 'Dreamy', 'Luminous', 'Ethereal',
+        'Fluid', 'Adrift', 'Dissolved', 'Liminal', 'Iridescent',
+        'Silvery', 'Hazy', 'Gossamer', 'Misty', 'Deep',
+        'Glimmering', 'Oceanic', 'Suspended', 'Boundless', 'Porous',
+        'Soft', 'Tender', 'Flowing', 'Translucent', 'Woven'
     ];
 
     const luckyColors = [

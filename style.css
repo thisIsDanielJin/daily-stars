@@ -398,6 +398,17 @@ body.soften .pisces-symbol {
     box-shadow: 0 0 6px rgba(255, 255, 255, 0.6), inset 0 0 3px rgba(0, 0, 0, 0.05);
 }
 
+.mood-label {
+    text-align: center;
+    font-size: 0.7rem;
+    font-weight: 600;
+    color: #b09ac7;
+    letter-spacing: 1.4px;
+    text-transform: uppercase;
+    margin-bottom: 2px;
+    animation: fade-in 0.8s ease-out 0.25s backwards;
+}
+
 .mood-word {
     font-family: 'Cormorant Garamond', Georgia, serif;
     text-align: center;
