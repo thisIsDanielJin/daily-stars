@@ -112,6 +112,31 @@ body.anniversary-mode::before {
     overflow: hidden;
 }
 
+.constellation {
+    position: fixed;
+    top: 4vh;
+    left: 50%;
+    transform: translateX(-50%);
+    width: min(560px, 92vw);
+    height: auto;
+    pointer-events: none;
+    z-index: 0;
+    opacity: 0.45;
+    filter: drop-shadow(0 0 6px rgba(255, 255, 255, 0.5));
+}
+
+.constellation-stars circle {
+    animation: twinkle 3.6s ease-in-out infinite;
+    animation-delay: var(--twinkle-delay, 0s);
+    transform-origin: center;
+    transform-box: fill-box;
+}
+
+@keyframes twinkle {
+    0%, 100% { opacity: 0.6; transform: scale(1); }
+    50% { opacity: 1; transform: scale(1.35); }
+}
+
 .bubble {
     position: absolute;
     bottom: -80px;
@@ -436,10 +461,38 @@ body.soften .pisces-symbol {
     background: rgba(255, 255, 255, 0.7);
     border: 1.5px solid rgba(255, 215, 100, 0.5);
     box-shadow: 0 4px 20px rgba(255, 200, 80, 0.15), inset 0 0 20px rgba(255, 230, 150, 0.1);
+    padding: 26px 26px 22px;
 }
 
 .score-card--best:hover {
     box-shadow: 0 8px 28px rgba(255, 200, 80, 0.2), inset 0 0 20px rgba(255, 230, 150, 0.1);
+}
+
+.score-card--best .score-value {
+    font-size: 2rem;
+}
+
+.score-card--best .name {
+    font-size: 1.05rem;
+}
+
+.score-card--best .score-flavor {
+    font-size: 1.4rem;
+}
+
+.score-card--best .score-bar-container {
+    height: 8px;
+}
+
+.score-card--best::after {
+    content: '';
+    position: absolute;
+    bottom: -30px;
+    right: -30px;
+    width: 120px;
+    height: 120px;
+    background: radial-gradient(circle, rgba(255, 215, 100, 0.18), transparent 70%);
+    pointer-events: none;
 }
 
 .best-badge {
@@ -469,9 +522,25 @@ body.soften .pisces-symbol {
 }
 
 .score-card-title .emoji {
-    font-size: 1.5rem;
+    width: 28px;
+    height: 28px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--card-accent);
     animation: bounce 2s ease-in-out infinite;
     animation-delay: var(--bounce-delay, 0s);
+}
+
+.score-card-title .emoji svg {
+    width: 100%;
+    height: 100%;
+    filter: drop-shadow(0 1px 4px rgba(140, 100, 200, 0.18));
+}
+
+.score-card--best .emoji {
+    width: 40px;
+    height: 40px;
 }
 
 @keyframes bounce {

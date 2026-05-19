@@ -30,6 +30,15 @@
 
     const luckyElements = ['Water', 'Fire', 'Earth', 'Air', 'Ether'];
 
+    const icons = {
+        love:       '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-4.35-9.5-9.2C.74 8.05 3.4 4 7 4c2 0 3.5 1.1 5 3 1.5-1.9 3-3 5-3 3.6 0 6.26 4.05 4.5 7.8C19 16.65 12 21 12 21z"/></svg>',
+        health:     '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 21c0-7 4-13 14-15-1 9-6 13-12 14"/><path d="M5 21c2-4 5-7 9-9"/></svg>',
+        spiritual:  '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>',
+        career:     '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2 4 14h7l-1 8 9-12h-7l1-8z"/></svg>',
+        creativity: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v3M12 18v3M3 12h3M18 12h3M5.6 5.6l2.1 2.1M16.3 16.3l2.1 2.1M5.6 18.4l2.1-2.1M16.3 7.7l2.1-2.1"/></svg>',
+        us:         '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="9.5" cy="12" r="5.5"/><circle cx="14.5" cy="12" r="5.5"/></svg>'
+    };
+
     const categories = [
         { name: 'Love', emoji: '❤️', key: 'love', accent: '#f7a3b8', accentEnd: '#f5c3d7' },
         { name: 'Health', emoji: '🌿', key: 'health', accent: '#7dd4a0', accentEnd: '#b8e8c9' },
@@ -327,12 +336,13 @@
 
         container.innerHTML = scores.map((s, i) => {
             const isBest = !allEqual && s.score === maxScore;
+            const iconHtml = icons[s.key] || `<span class="emoji-fallback">${s.emoji}</span>`;
             return `
             <div class="score-card${isBest ? ' score-card--best' : ''}${s.key === 'us' ? ' score-card--us' : ''}" style="animation-delay: ${i * 0.1}s; --card-accent: ${s.accent}; --card-accent-end: ${s.accentEnd}; --bounce-delay: ${i * 0.4}s">
                 ${isBest ? '<span class="best-badge">★ your superpower today</span>' : ''}
                 <div class="score-card-header">
                     <div class="score-card-title">
-                        <span class="emoji">${s.emoji}</span>
+                        <span class="emoji">${iconHtml}</span>
                         <span class="name">${s.name}</span>
                     </div>
                     <span class="score-value">${s.score}</span>
