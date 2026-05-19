@@ -213,6 +213,61 @@
         return { number, color, element };
     }
 
+    function daysBetween(a, b) {
+        const ms = 1000 * 60 * 60 * 24;
+        const da = new Date(a.getFullYear(), a.getMonth(), a.getDate());
+        const db = new Date(b.getFullYear(), b.getMonth(), b.getDate());
+        return Math.round((db - da) / ms);
+    }
+
+    function updateStreak() {
+        const STORAGE_KEY = 'daily-stars:streak';
+        const today = new Date();
+        const todayStr = getDateString();
+        let count = 1;
+        let resetMessage = null;
+
+        try {
+            const raw = localStorage.getItem(STORAGE_KEY);
+            if (raw) {
+                const saved = JSON.parse(raw);
+                const last = new Date(saved.lastDate);
+                if (!isNaN(last)) {
+                    const gap = daysBetween(last, today);
+                    if (gap === 0) {
+                        count = saved.count || 1;
+                    } else if (gap === 1) {
+                        count = (saved.count || 0) + 1;
+                    } else if (gap > 1) {
+                        count = 1;
+                        resetMessage = 'the tide always returns';
+                    }
+                }
+            }
+            localStorage.setItem(STORAGE_KEY, JSON.stringify({ lastDate: todayStr, count }));
+        } catch (e) {
+            // localStorage blocked — fall through with count = 1
+        }
+
+        return { count, resetMessage };
+    }
+
+    function renderStreak() {
+        const { count, resetMessage } = updateStreak();
+        const chip = document.getElementById('streak-chip');
+        if (!chip) return;
+        chip.innerHTML = `<span class="streak-flame">🔥</span><span class="streak-count">${count}</span><span class="streak-label">day${count === 1 ? '' : 's'}</span>`;
+        chip.classList.add('streak-chip--visible');
+        if (resetMessage) {
+            const note = document.getElementById('streak-note');
+            if (note) {
+                note.textContent = resetMessage;
+                note.classList.add('streak-note--visible');
+                setTimeout(() => note.classList.remove('streak-note--visible'), 5000);
+            }
+        }
+    }
+
     function renderScores(scores) {
         const container = document.getElementById('scores');
         const maxScore = Math.max(...scores.map(s => s.score));
@@ -280,6 +335,7 @@
 
         renderScores(generateScores());
         createBubbles();
+        renderStreak();
     }
 
     init();
