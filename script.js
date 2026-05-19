@@ -40,64 +40,39 @@
 
     const flavorTexts = {
         love: [
-            "The kind of day where even strangers smile at you",
-            "Your warmth is contagious — pass it around",
-            "Plot twist: someone's writing about you in their journal today",
-            "Main character energy in all your relationships",
-            "Your love language today? Just existing beautifully",
-            "Hearts don't skip beats for everyone — you're special",
-            "The universe shipped you with happiness today",
-            "Good vibes only, and your vibe check is immaculate",
-            "Love is literally orbiting you right now",
-            "You make people feel safe just by being near"
+            'tender', 'magnetic', 'woven', 'honeyed', 'glowing',
+            'braided', 'unguarded', 'nested', 'liquid', 'folded-in',
+            'known', 'gathered', 'chosen', 'ripening', 'dear',
+            'threaded', 'soft-bodied', 'near', 'spilled', 'kindled',
+            'aglow', 'melded', 'cradled', 'found', 'warmed-through'
         ],
         health: [
-            "Your body is a wonderland and it knows what it's doing",
-            "Today's forecast: glowing skin and good energy",
-            "You woke up and chose thriving",
-            "Every cell in you is throwing a little party right now",
-            "Your energy today? Chef's kiss",
-            "The kind of day where even water tastes better",
-            "Your body is on your team — always has been",
-            "Stretch, breathe, conquer. In that order.",
-            "You're radiating that 'just had a great sleep' glow",
-            "Everything is flowing in rhythm today"
+            'rooted', 'tidal', 'humming', 'supple', 'alight',
+            'spring-fed', 'buoyant', 'silver', 'elastic', 'rinsed',
+            'whole', 'limber', 'bright-bodied', 'restored', 'fluent',
+            'light-footed', 'clear', 'balanced', 'kindled', 'sea-strong',
+            'lifted', 'flowing', 'woken', 'even-pulsed', 'glassy'
         ],
         spiritual: [
-            "Your third eye is basically open for business",
-            "The universe left you a breadcrumb trail today — follow it",
-            "Your intuition? Louder than usual. Listen.",
-            "Something magical is trying to find you today",
-            "You're vibrating at a frequency that attracts miracles",
-            "The fish knows which current to swim — trust yours",
-            "Today the veil between you and your best life is thin",
-            "Your dreams last night? They meant something. Sit with it.",
-            "Cosmic downloads incoming — stay open",
-            "You're more connected than you realize right now"
+            'porous', 'listening', 'thinning', 'attuned', 'liminal',
+            'cracked-open', 'transparent', 'hollow', 'receptive', 'bell-like',
+            'knowing', 'sea-glass', 'moonlit', 'under-current', 'fluent',
+            'threaded', 'aware', 'soft-focused', 'dreaming', 'attuning',
+            'lit-from-within', 'summoned', 'called', 'drifting', 'awake'
         ],
         career: [
-            "Main character arc: the glow-up chapter",
-            "Someone important is going to notice you today",
-            "Your brain is operating at 'genius bar' level today",
-            "Today's energy says: bold moves, no hesitation",
-            "You're building something bigger than you realize",
-            "The dots are connecting — even the ones you can't see yet",
-            "Your next great idea is closer than your phone",
-            "Quiet confidence is your superpower today",
-            "The kind of day where everything clicks into place",
-            "Future you is proud of what you're doing right now"
+            'precise', 'taut', 'sharpened', 'aligned', 'in-flow',
+            'striking', 'composed', 'cutting', 'decisive', 'forging',
+            'iron-bright', 'pointed', 'in-stride', 'tactical', 'rising',
+            'focused', 'magnetic', 'building', 'accelerating', 'lucid',
+            'certain', 'paced', 'calibrated', 'edge-on', 'deliberate'
         ],
         creativity: [
-            "Your brain is a Pinterest board of amazing ideas today",
-            "Everything you touch gets a little more beautiful",
-            "The muse didn't just visit — she moved in",
-            "Your creative energy could power a small city",
-            "Today's vibe: accidentally making art out of everything",
-            "You see the world in colors other people haven't named yet",
-            "Inspiration is stalking you in the best way",
-            "Your imagination said 'no limits' today",
-            "The ideas flowing through you deserve a standing ovation",
-            "Creating today isn't work — it's play"
+            'spilling', 'saturated', 'teeming', 'electric', 'generative',
+            'molten', 'flooded', 'unspooling', 'summoning', 'patterning',
+            'prolific', 'iridescent', 'spawning', 'pollinating', 'weaving',
+            'charged', 'fertile', 'volcanic', 'ripe', 'abundant',
+            'dripping', 'kaleidoscopic', 'sparking', 'painterly', 'percolating'
         ]
     };
 

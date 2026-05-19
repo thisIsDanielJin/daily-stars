@@ -520,11 +520,13 @@ body.soften .pisces-symbol {
 }
 
 .score-flavor {
-    font-size: 0.82rem;
-    color: #8b6bab;
+    font-size: 1rem;
+    color: #7c4dbd;
     font-style: italic;
     font-weight: 500;
     line-height: 1.4;
+    letter-spacing: 0.3px;
+    opacity: 0.85;
 }
 
 @keyframes slide-up {
