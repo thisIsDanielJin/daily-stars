@@ -174,11 +174,12 @@
     function generateScores() {
         const dateStr = getDateString();
         const scores = [];
+        const allHundred = isBirthday();
 
         categories.forEach((cat) => {
             const seed = hashString(dateStr + cat.key);
             const rng = seededRandom(seed);
-            const score = Math.floor(rng() * 25) + 75;
+            const score = allHundred ? 100 : Math.floor(rng() * 25) + 75;
             const flavorIndex = Math.floor(rng() * flavorTexts[cat.key].length);
             scores.push({
                 ...cat,
@@ -186,6 +187,18 @@
                 flavor: flavorTexts[cat.key][flavorIndex]
             });
         });
+
+        if (isAnniversary()) {
+            scores.unshift({
+                name: 'Us',
+                emoji: '💕',
+                key: 'us',
+                accent: '#f7a3b8',
+                accentEnd: '#f5c3d7',
+                score: 100,
+                flavor: 'Today the universe agrees with us.'
+            });
+        }
 
         return scores;
     }
@@ -335,11 +348,12 @@
     function renderScores(scores) {
         const container = document.getElementById('scores');
         const maxScore = Math.max(...scores.map(s => s.score));
+        const allEqual = scores.every(s => s.score === maxScore);
 
         container.innerHTML = scores.map((s, i) => {
-            const isBest = s.score === maxScore;
+            const isBest = !allEqual && s.score === maxScore;
             return `
-            <div class="score-card${isBest ? ' score-card--best' : ''}" style="animation-delay: ${i * 0.1}s; --card-accent: ${s.accent}; --card-accent-end: ${s.accentEnd}; --bounce-delay: ${i * 0.4}s">
+            <div class="score-card${isBest ? ' score-card--best' : ''}${s.key === 'us' ? ' score-card--us' : ''}" style="animation-delay: ${i * 0.1}s; --card-accent: ${s.accent}; --card-accent-end: ${s.accentEnd}; --bounce-delay: ${i * 0.4}s">
                 ${isBest ? '<span class="best-badge">★ your superpower today</span>' : ''}
                 <div class="score-card-header">
                     <div class="score-card-title">
@@ -381,9 +395,58 @@
         }
     }
 
+    function createConfetti() {
+        const container = document.getElementById('confetti');
+        if (!container) return;
+        const colors = ['#f7c948', '#f7a3b8', '#c5a3f7', '#7ecbf5', '#ffb997', '#fde68a'];
+        const count = 60;
+        for (let i = 0; i < count; i++) {
+            const piece = document.createElement('span');
+            piece.className = 'confetti-piece';
+            piece.style.left = Math.random() * 100 + '%';
+            piece.style.background = colors[Math.floor(Math.random() * colors.length)];
+            piece.style.animationDelay = (Math.random() * 4) + 's';
+            piece.style.animationDuration = (4 + Math.random() * 4) + 's';
+            piece.style.transform = `rotate(${Math.random() * 360}deg)`;
+            container.appendChild(piece);
+        }
+    }
+
+    function applyDateMode() {
+        if (isBirthday()) {
+            document.body.classList.add('birthday-mode');
+            createConfetti();
+        }
+        if (isAnniversary()) {
+            document.body.classList.add('anniversary-mode');
+        }
+    }
+
+    function getModeGreeting() {
+        if (isBirthday()) return 'Happy birthday, Rong ♓ ✨';
+        return getGreeting();
+    }
+
+    function getModeQuote() {
+        if (isBirthday()) {
+            return {
+                text: "Today the world made room for you. Take all of it.",
+                author: 'für dich'
+            };
+        }
+        if (isAnniversary()) {
+            return {
+                text: "Two fish, one current. Same direction since the beginning.",
+                author: 'uns'
+            };
+        }
+        return getDailyQuote();
+    }
+
     function init() {
-        document.getElementById('greeting').textContent = getGreeting();
-        document.getElementById('date').textContent = getFormattedDate();
+        applyDateMode();
+        document.getElementById('greeting').textContent = getModeGreeting();
+        document.getElementById('date').textContent = getFormattedDate() + (isAnniversary() ? ' · our day' : '');
 
         const trio = getLuckyTrio();
         document.getElementById('lucky-number').textContent = trio.number;
@@ -393,7 +456,7 @@
 
         document.getElementById('mood-word').textContent = getDailyMood();
 
-        const quote = getDailyQuote();
+        const quote = getModeQuote();
         document.getElementById('quote').textContent = quote.text;
         document.getElementById('quote-author').textContent = '— ' + quote.author;
 

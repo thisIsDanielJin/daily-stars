@@ -10,6 +10,95 @@ body {
     background: linear-gradient(160deg, #e8d5f5 0%, #c9e8f5 40%, #f5e1f0 70%, #d4f0f7 100%);
     overflow-x: hidden;
     position: relative;
+    transition: background 1.2s ease;
+}
+
+body.birthday-mode {
+    background: linear-gradient(160deg, #fde68a 0%, #fcd1d9 35%, #f7c948 70%, #ffb997 100%);
+}
+
+body.birthday-mode .pisces-symbol::before {
+    content: '👑';
+    position: absolute;
+    font-size: 28px;
+    transform: translate(-50%, -88%);
+    left: 50%;
+    animation: crown-bob 2.4s ease-in-out infinite;
+    filter: drop-shadow(0 0 8px rgba(255, 200, 80, 0.6));
+}
+
+body.birthday-mode .pisces-symbol {
+    position: relative;
+}
+
+@keyframes crown-bob {
+    0%, 100% { transform: translate(-50%, -88%) rotate(-4deg); }
+    50% { transform: translate(-50%, -98%) rotate(4deg); }
+}
+
+body.anniversary-mode::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    pointer-events: none;
+    background-image: radial-gradient(circle at 20% 30%, rgba(247, 163, 184, 0.18) 2px, transparent 3px),
+                      radial-gradient(circle at 70% 65%, rgba(247, 163, 184, 0.14) 2px, transparent 3px),
+                      radial-gradient(circle at 45% 85%, rgba(247, 163, 184, 0.16) 2px, transparent 3px);
+    background-size: 180px 180px, 220px 220px, 260px 260px;
+    z-index: 0;
+    opacity: 0.7;
+    animation: hearts-drift 40s linear infinite;
+}
+
+@keyframes hearts-drift {
+    from { background-position: 0 0, 0 0, 0 0; }
+    to { background-position: 180px 180px, -220px 220px, 260px -260px; }
+}
+
+.confetti {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 4;
+    overflow: hidden;
+}
+
+.confetti-piece {
+    position: absolute;
+    top: -20px;
+    width: 8px;
+    height: 14px;
+    border-radius: 2px;
+    opacity: 0.85;
+    animation: confetti-fall linear infinite;
+}
+
+@keyframes confetti-fall {
+    0% {
+        transform: translateY(0) rotate(0deg);
+        opacity: 0;
+    }
+    10% { opacity: 0.9; }
+    100% {
+        transform: translateY(110vh) rotate(720deg);
+        opacity: 0.7;
+    }
+}
+
+.score-card--us {
+    background: rgba(255, 240, 245, 0.7);
+    border: 1.5px solid rgba(247, 163, 184, 0.55);
+    box-shadow: 0 4px 20px rgba(247, 163, 184, 0.18), inset 0 0 24px rgba(255, 220, 230, 0.18);
+}
+
+.score-card--us:hover {
+    box-shadow: 0 8px 28px rgba(247, 163, 184, 0.25), inset 0 0 24px rgba(255, 220, 230, 0.18);
 }
 
 .bubbles {
