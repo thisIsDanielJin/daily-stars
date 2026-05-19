@@ -1,4 +1,35 @@
 (function () {
+    const PERSONAL = {
+        birthday: { month: 3, day: 2 },
+        anniversary: { month: 5, day: 31 },
+        hiddenPhrase: 'Hab dich lieb',
+        hiddenPhraseBirthday: 'Hab dich lieb. Heute besonders.'
+    };
+
+    const moods = [
+        'Soft', 'Electric', 'Tender', 'Wild', 'Lucid', 'Glowing', 'Tidal',
+        'Quiet', 'Radiant', 'Open', 'Floating', 'Bright', 'Magnetic',
+        'Dreamy', 'Sparkling', 'Anchored', 'Curious', 'Velvet', 'Sun-kissed',
+        'Moonlit', 'Whimsical', 'Honeyed', 'Crystalline', 'Daring', 'Soaring'
+    ];
+
+    const luckyColors = [
+        { name: 'Seafoam',     hex: '#a8e6cf' },
+        { name: 'Lavender',    hex: '#c5a3f7' },
+        { name: 'Pearl',       hex: '#f5f0e6' },
+        { name: 'Coral',       hex: '#ff9aa2' },
+        { name: 'Sky',         hex: '#a3d8f5' },
+        { name: 'Rose',        hex: '#f7c8d4' },
+        { name: 'Mint',        hex: '#b8e8c9' },
+        { name: 'Gold',        hex: '#f7c948' },
+        { name: 'Amethyst',    hex: '#9b7bb8' },
+        { name: 'Aquamarine',  hex: '#7ecbf5' },
+        { name: 'Peach',       hex: '#ffb997' },
+        { name: 'Indigo',      hex: '#7c4dbd' }
+    ];
+
+    const luckyElements = ['Water', 'Fire', 'Earth', 'Air', 'Ether'];
+
     const categories = [
         { name: 'Love', emoji: '❤️', key: 'love', accent: '#f7a3b8', accentEnd: '#f5c3d7' },
         { name: 'Health', emoji: '🌿', key: 'health', accent: '#7dd4a0', accentEnd: '#b8e8c9' },
@@ -167,6 +198,21 @@
         return quotes[index];
     }
 
+    function getDailyMood() {
+        const seed = hashString(getDateString() + 'mood');
+        const rng = seededRandom(seed);
+        return moods[Math.floor(rng() * moods.length)];
+    }
+
+    function getLuckyTrio() {
+        const seed = hashString(getDateString() + 'lucky');
+        const rng = seededRandom(seed);
+        const number = Math.floor(rng() * 99) + 1;
+        const color = luckyColors[Math.floor(rng() * luckyColors.length)];
+        const element = luckyElements[Math.floor(rng() * luckyElements.length)];
+        return { number, color, element };
+    }
+
     function renderScores(scores) {
         const container = document.getElementById('scores');
         const maxScore = Math.max(...scores.map(s => s.score));
@@ -219,6 +265,14 @@
     function init() {
         document.getElementById('greeting').textContent = getGreeting();
         document.getElementById('date').textContent = getFormattedDate();
+
+        const trio = getLuckyTrio();
+        document.getElementById('lucky-number').textContent = trio.number;
+        document.getElementById('lucky-color-name').textContent = trio.color.name;
+        document.getElementById('lucky-color-dot').style.background = trio.color.hex;
+        document.getElementById('lucky-element').textContent = trio.element;
+
+        document.getElementById('mood-word').textContent = getDailyMood();
 
         const quote = getDailyQuote();
         document.getElementById('quote').textContent = quote.text;

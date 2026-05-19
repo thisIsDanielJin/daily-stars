@@ -113,6 +113,62 @@ body {
     text-transform: uppercase;
 }
 
+.lucky-strip {
+    margin-top: 14px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    font-size: 0.78rem;
+    color: #8b6bab;
+    font-weight: 600;
+    letter-spacing: 0.4px;
+    flex-wrap: wrap;
+}
+
+.lucky-item {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.lucky-label {
+    color: #b09ac7;
+    font-weight: 700;
+}
+
+.lucky-divider {
+    color: #c5b3d9;
+    opacity: 0.7;
+}
+
+.lucky-color-dot {
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    box-shadow: 0 0 6px rgba(255, 255, 255, 0.6), inset 0 0 3px rgba(0, 0, 0, 0.05);
+}
+
+.mood-word {
+    text-align: center;
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 24px;
+    background: linear-gradient(135deg, #7c4dbd, #5ba8d4, #c5a3f7);
+    background-size: 200% 200%;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    letter-spacing: 1px;
+    animation: fade-in 0.9s ease-out 0.3s backwards, mood-shimmer 8s ease-in-out infinite;
+}
+
+@keyframes mood-shimmer {
+    0%, 100% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+}
+
 .scores {
     display: flex;
     flex-direction: column;
