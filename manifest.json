@@ -1,0 +1,24 @@
+{
+  "name": "Rong's Daily Stars",
+  "short_name": "Daily Stars",
+  "description": "A daily Pisces oracle for Rong",
+  "start_url": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#e8d5f5",
+  "theme_color": "#c5a3f7",
+  "icons": [
+    {
+      "src": "icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}

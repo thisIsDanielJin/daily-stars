@@ -6,6 +6,16 @@
         hiddenPhraseBirthday: 'Hab dich lieb. Heute besonders.'
     };
 
+    const STORAGE = {
+        streak: 'daily-stars:streak',
+        bestStreak: 'daily-stars:best-streak',
+        secrets: 'daily-stars:secrets',
+        visits: 'daily-stars:visits',
+        milestonesShown: 'daily-stars:milestones-shown',
+        sound: 'daily-stars:sound',
+        starsLit: 'daily-stars:stars-lit'
+    };
+
     const moods = [
         'Tidal', 'Moonlit', 'Dreamy', 'Luminous', 'Ethereal',
         'Fluid', 'Adrift', 'Dissolved', 'Liminal', 'Iridescent',
@@ -49,41 +59,11 @@
     ];
 
     const flavorTexts = {
-        love: [
-            'tender', 'magnetic', 'woven', 'honeyed', 'glowing',
-            'braided', 'unguarded', 'nested', 'liquid', 'folded-in',
-            'known', 'gathered', 'chosen', 'ripening', 'dear',
-            'threaded', 'soft-bodied', 'near', 'spilled', 'kindled',
-            'aglow', 'melded', 'cradled', 'found', 'warmed-through'
-        ],
-        health: [
-            'rooted', 'tidal', 'humming', 'supple', 'alight',
-            'spring-fed', 'buoyant', 'silver', 'elastic', 'rinsed',
-            'whole', 'limber', 'bright-bodied', 'restored', 'fluent',
-            'light-footed', 'clear', 'balanced', 'kindled', 'sea-strong',
-            'lifted', 'flowing', 'woken', 'even-pulsed', 'glassy'
-        ],
-        spiritual: [
-            'porous', 'listening', 'thinning', 'attuned', 'liminal',
-            'cracked-open', 'transparent', 'hollow', 'receptive', 'bell-like',
-            'knowing', 'sea-glass', 'moonlit', 'under-current', 'fluent',
-            'threaded', 'aware', 'soft-focused', 'dreaming', 'attuning',
-            'lit-from-within', 'summoned', 'called', 'drifting', 'awake'
-        ],
-        career: [
-            'precise', 'taut', 'sharpened', 'aligned', 'in-flow',
-            'striking', 'composed', 'cutting', 'decisive', 'forging',
-            'iron-bright', 'pointed', 'in-stride', 'tactical', 'rising',
-            'focused', 'magnetic', 'building', 'accelerating', 'lucid',
-            'certain', 'paced', 'calibrated', 'edge-on', 'deliberate'
-        ],
-        creativity: [
-            'spilling', 'saturated', 'teeming', 'electric', 'generative',
-            'molten', 'flooded', 'unspooling', 'summoning', 'patterning',
-            'prolific', 'iridescent', 'spawning', 'pollinating', 'weaving',
-            'charged', 'fertile', 'volcanic', 'ripe', 'abundant',
-            'dripping', 'kaleidoscopic', 'sparking', 'painterly', 'percolating'
-        ]
+        love: ['tender', 'magnetic', 'woven', 'honeyed', 'glowing', 'braided', 'unguarded', 'nested', 'liquid', 'folded-in', 'known', 'gathered', 'chosen', 'ripening', 'dear', 'threaded', 'soft-bodied', 'near', 'spilled', 'kindled', 'aglow', 'melded', 'cradled', 'found', 'warmed-through'],
+        health: ['rooted', 'tidal', 'humming', 'supple', 'alight', 'spring-fed', 'buoyant', 'silver', 'elastic', 'rinsed', 'whole', 'limber', 'bright-bodied', 'restored', 'fluent', 'light-footed', 'clear', 'balanced', 'kindled', 'sea-strong', 'lifted', 'flowing', 'woken', 'even-pulsed', 'glassy'],
+        spiritual: ['porous', 'listening', 'thinning', 'attuned', 'liminal', 'cracked-open', 'transparent', 'hollow', 'receptive', 'bell-like', 'knowing', 'sea-glass', 'moonlit', 'under-current', 'fluent', 'threaded', 'aware', 'soft-focused', 'dreaming', 'attuning', 'lit-from-within', 'summoned', 'called', 'drifting', 'awake'],
+        career: ['precise', 'taut', 'sharpened', 'aligned', 'in-flow', 'striking', 'composed', 'cutting', 'decisive', 'forging', 'iron-bright', 'pointed', 'in-stride', 'tactical', 'rising', 'focused', 'magnetic', 'building', 'accelerating', 'lucid', 'certain', 'paced', 'calibrated', 'edge-on', 'deliberate'],
+        creativity: ['spilling', 'saturated', 'teeming', 'electric', 'generative', 'molten', 'flooded', 'unspooling', 'summoning', 'patterning', 'prolific', 'iridescent', 'spawning', 'pollinating', 'weaving', 'charged', 'fertile', 'volcanic', 'ripe', 'abundant', 'dripping', 'kaleidoscopic', 'sparking', 'painterly', 'percolating']
     };
 
     const quotes = [
@@ -119,6 +99,34 @@
         { text: "Beauty is not in the face; beauty is a light in the heart.", author: "Kahlil Gibran" }
     ];
 
+    // Tarot deck — major arcana, all readings positive or neutral. Never negative.
+    const tarot = [
+        { num: '0',     name: 'The Fool',          reading: 'A clean beginning is offered. Step lightly — the path holds you.' },
+        { num: 'I',     name: 'The Magician',      reading: 'Everything you need is already within reach. Today is yours to shape.' },
+        { num: 'II',    name: 'The High Priestess',reading: 'Your intuition is the loudest voice in the room. Trust what it whispers.' },
+        { num: 'III',   name: 'The Empress',       reading: 'Abundance is gathering around you. Let yourself be filled.' },
+        { num: 'IV',    name: 'The Emperor',       reading: 'You hold quiet authority today. Decide once, and the rest follows.' },
+        { num: 'V',     name: 'The Hierophant',    reading: 'A wise pattern is showing itself. Old wisdom is meeting your present.' },
+        { num: 'VI',    name: 'The Lovers',        reading: 'A choice made from the heart will not lead you wrong today.' },
+        { num: 'VII',   name: 'The Chariot',       reading: 'You are moving in the right direction. The current is with you.' },
+        { num: 'VIII',  name: 'Strength',          reading: 'Soft hands tame everything today. Your gentleness is your power.' },
+        { num: 'IX',    name: 'The Hermit',        reading: 'Stillness reveals what motion hides. A quiet hour will repay you.' },
+        { num: 'X',     name: 'Wheel of Fortune',  reading: 'A new turn is in motion. Lucky timing is on your side.' },
+        { num: 'XI',    name: 'Justice',           reading: 'Things are settling into their right shape. What is fair will find you.' },
+        { num: 'XII',   name: 'The Hanged One',    reading: 'A different angle dissolves what felt stuck. Let yourself float a moment.' },
+        { num: 'XIII',  name: 'The Renewal',       reading: 'Something is making room for what comes next. The shedding is gentle.' },
+        { num: 'XIV',   name: 'Temperance',        reading: 'You are blending opposites beautifully. Today rewards the middle path.' },
+        { num: 'XV',    name: 'The Mirror',        reading: 'What you see in others, you can claim in yourself. Take it back.' },
+        { num: 'XVI',   name: 'The Tower',         reading: 'A quiet realisation is freeing you from something outgrown. Breathe.' },
+        { num: 'XVII',  name: 'The Star',          reading: 'Hope is your compass today. The water knows the way home.' },
+        { num: 'XVIII', name: 'The Moon',          reading: 'Dreams are speaking clearly. Write down what surfaces — it is true.' },
+        { num: 'XIX',   name: 'The Sun',           reading: 'Lightness, ease, warmth. Today is uncomplicated and yours.' },
+        { num: 'XX',    name: 'Awakening',         reading: 'A long-asleep part of you is waking. Let it stretch fully.' },
+        { num: 'XXI',   name: 'The World',         reading: 'A circle is closing beautifully. Stand inside the completeness.' }
+    ];
+
+    // -------- helpers --------
+
     function seededRandom(seed) {
         let s = seed;
         return function () {
@@ -137,8 +145,8 @@
         return Math.abs(hash);
     }
 
-    function getDateString() {
-        const now = new Date();
+    function getDateString(date) {
+        const now = date || new Date();
         const m = String(now.getMonth() + 1).padStart(2, '0');
         const d = String(now.getDate()).padStart(2, '0');
         return `${now.getFullYear()}-${m}-${d}`;
@@ -160,11 +168,49 @@
 
     function getGreeting() {
         const hour = new Date().getHours();
+        if (hour >= 0 && hour < 4) return 'The night is yours, Rong';
+        if (hour >= 4 && hour < 6) return 'Before-dawn quiet, Rong';
         if (hour < 12) return 'Good morning, Rong';
         if (hour < 17) return 'Good afternoon, Rong';
         if (hour < 21) return 'Good evening, Rong';
         return 'Sweet dreams, Rong';
     }
+
+    function readJSON(key, fallback) {
+        try {
+            const raw = localStorage.getItem(key);
+            return raw ? JSON.parse(raw) : fallback;
+        } catch (e) {
+            return fallback;
+        }
+    }
+
+    function writeJSON(key, value) {
+        try {
+            localStorage.setItem(key, JSON.stringify(value));
+        } catch (e) {
+            // ignore
+        }
+    }
+
+    function isBirthday() {
+        const now = new Date();
+        return now.getMonth() + 1 === PERSONAL.birthday.month && now.getDate() === PERSONAL.birthday.day;
+    }
+
+    function isAnniversary() {
+        const now = new Date();
+        return now.getMonth() + 1 === PERSONAL.anniversary.month && now.getDate() === PERSONAL.anniversary.day;
+    }
+
+    function daysBetween(a, b) {
+        const ms = 1000 * 60 * 60 * 24;
+        const da = new Date(a.getFullYear(), a.getMonth(), a.getDate());
+        const db = new Date(b.getFullYear(), b.getMonth(), b.getDate());
+        return Math.round((db - da) / ms);
+    }
+
+    // -------- daily content --------
 
     function generateScores() {
         const dateStr = getDateString();
@@ -176,22 +222,14 @@
             const rng = seededRandom(seed);
             const score = allHundred ? 100 : Math.floor(rng() * 25) + 75;
             const flavorIndex = Math.floor(rng() * flavorTexts[cat.key].length);
-            scores.push({
-                ...cat,
-                score,
-                flavor: flavorTexts[cat.key][flavorIndex]
-            });
+            scores.push({ ...cat, score, flavor: flavorTexts[cat.key][flavorIndex] });
         });
 
         if (isAnniversary()) {
             scores.unshift({
-                name: 'Us',
-                emoji: '💕',
-                key: 'us',
-                accent: '#f7a3b8',
-                accentEnd: '#f5c3d7',
-                score: 100,
-                flavor: 'Today the universe agrees with us.'
+                name: 'Us', emoji: '💕', key: 'us',
+                accent: '#f7a3b8', accentEnd: '#f5c3d7',
+                score: 100, flavor: 'Today the universe agrees with us.'
             });
         }
 
@@ -199,11 +237,9 @@
     }
 
     function getDailyQuote() {
-        const dateStr = getDateString();
-        const seed = hashString(dateStr + 'quote');
+        const seed = hashString(getDateString() + 'quote');
         const rng = seededRandom(seed);
-        const index = Math.floor(rng() * quotes.length);
-        return quotes[index];
+        return quotes[Math.floor(rng() * quotes.length)];
     }
 
     function getDailyMood() {
@@ -221,24 +257,64 @@
         return { number, color, element };
     }
 
-    function daysBetween(a, b) {
-        const ms = 1000 * 60 * 60 * 24;
-        const da = new Date(a.getFullYear(), a.getMonth(), a.getDate());
-        const db = new Date(b.getFullYear(), b.getMonth(), b.getDate());
-        return Math.round((db - da) / ms);
+    function getDailyTarot() {
+        const seed = hashString(getDateString() + 'tarot');
+        const rng = seededRandom(seed);
+        return tarot[Math.floor(rng() * tarot.length)];
     }
 
+    // -------- moon phase (Conway's algorithm, no API) --------
+
+    function getMoonPhase() {
+        const now = new Date();
+        let year = now.getFullYear();
+        let month = now.getMonth() + 1;
+        const day = now.getDate();
+        if (month < 3) { year -= 1; month += 12; }
+        const c = 365.25 * year;
+        const e = 30.6 * (month + 1);
+        const jd = c + e + day - 694039.09;
+        const phase = (jd / 29.5305882) % 1;
+        const p = phase < 0 ? phase + 1 : phase;
+
+        const phases = [
+            { name: 'New Moon',         glyph: '🌑', range: [0, 0.0625] },
+            { name: 'Waxing Crescent',  glyph: '🌒', range: [0.0625, 0.1875] },
+            { name: 'First Quarter',    glyph: '🌓', range: [0.1875, 0.3125] },
+            { name: 'Waxing Gibbous',   glyph: '🌔', range: [0.3125, 0.4375] },
+            { name: 'Full Moon',        glyph: '🌕', range: [0.4375, 0.5625] },
+            { name: 'Waning Gibbous',   glyph: '🌖', range: [0.5625, 0.6875] },
+            { name: 'Last Quarter',     glyph: '🌗', range: [0.6875, 0.8125] },
+            { name: 'Waning Crescent',  glyph: '🌘', range: [0.8125, 0.9375] },
+            { name: 'New Moon',         glyph: '🌑', range: [0.9375, 1.001] }
+        ];
+        return phases.find((ph) => p >= ph.range[0] && p < ph.range[1]) || phases[0];
+    }
+
+    // -------- season palette --------
+
+    function applySeasonPalette() {
+        const m = new Date().getMonth() + 1;
+        let season = 'spring';
+        if (m === 12 || m <= 2) season = 'winter';
+        else if (m >= 3 && m <= 5) season = 'spring';
+        else if (m >= 6 && m <= 8) season = 'summer';
+        else season = 'autumn';
+        document.body.dataset.season = season;
+    }
+
+    // -------- streak --------
+
     function updateStreak() {
-        const STORAGE_KEY = 'daily-stars:streak';
         const today = new Date();
-        const todayStr = getDateString();
+        const todayStr = getDateString(today);
         let count = 1;
         let resetMessage = null;
+        let wasReset = false;
 
         try {
-            const raw = localStorage.getItem(STORAGE_KEY);
-            if (raw) {
-                const saved = JSON.parse(raw);
+            const saved = readJSON(STORAGE.streak, null);
+            if (saved) {
                 const last = parseDateString(saved.lastDate);
                 if (last) {
                     const gap = daysBetween(last, today);
@@ -249,44 +325,241 @@
                     } else if (gap > 1) {
                         count = 1;
                         resetMessage = 'the tide always returns';
+                        wasReset = true;
                     } else {
-                        // gap < 0 (clock moved backward) — keep existing count, don't increment
                         count = saved.count || 1;
                     }
                 }
             }
-            localStorage.setItem(STORAGE_KEY, JSON.stringify({ lastDate: todayStr, count }));
+            writeJSON(STORAGE.streak, { lastDate: todayStr, count });
+
+            const best = readJSON(STORAGE.bestStreak, 0) || 0;
+            if (count > best) writeJSON(STORAGE.bestStreak, count);
         } catch (e) {
-            // localStorage blocked — fall through with count = 1
+            // ignore
         }
 
-        return { count, resetMessage };
+        return { count, resetMessage, wasReset, best: readJSON(STORAGE.bestStreak, 0) || count };
     }
 
-    function renderStreak() {
-        const { count, resetMessage } = updateStreak();
+    function renderStreak(streak) {
         const chip = document.getElementById('streak-chip');
         if (!chip) return;
-        chip.innerHTML = `<span class="streak-flame">🔥</span><span class="streak-count">${count}</span><span class="streak-label">day${count === 1 ? '' : 's'}</span>`;
+        const bestSuffix = streak.best > streak.count ? ` <span class="streak-best">· best ${streak.best}</span>` : '';
+        chip.innerHTML = `<span class="streak-flame">🔥</span><span class="streak-count">${streak.count}</span><span class="streak-label">day${streak.count === 1 ? '' : 's'}</span>${bestSuffix}`;
         chip.classList.add('streak-chip--visible');
-        if (resetMessage) {
+        if (streak.resetMessage) {
             const note = document.getElementById('streak-note');
             if (note) {
-                note.textContent = resetMessage;
+                note.textContent = streak.resetMessage;
                 note.classList.add('streak-note--visible');
                 setTimeout(() => note.classList.remove('streak-note--visible'), 5000);
             }
         }
     }
 
-    function isBirthday() {
-        const now = new Date();
-        return now.getMonth() + 1 === PERSONAL.birthday.month && now.getDate() === PERSONAL.birthday.day;
+    // -------- streak milestones --------
+
+    const milestones = [
+        { count: 7,   layer: 'milestone-1', label: '7 days · the first week is yours' },
+        { count: 30,  layer: 'milestone-2', label: '30 days · a moon cycle of returning' },
+        { count: 100, layer: 'milestone-3', label: '100 days · the deep current' },
+        { count: 365, layer: 'milestone-4', label: '365 days · a whole year, a whole self' }
+    ];
+
+    function applyMilestones(streakCount) {
+        const shown = readJSON(STORAGE.milestonesShown, []) || [];
+        // Apply visual layers for every reached milestone — these persist permanently
+        // even if the streak later resets (they're earned, not current).
+        const everReached = readJSON(STORAGE.bestStreak, 0) || 0;
+        const reachedNow = Math.max(streakCount, everReached);
+        milestones.forEach((m) => {
+            if (reachedNow >= m.count) document.body.classList.add(m.layer);
+        });
+        // Show a celebration toast the first time each milestone is hit
+        for (const m of milestones) {
+            if (streakCount >= m.count && !shown.includes(m.count)) {
+                showMilestoneToast(m.label);
+                shown.push(m.count);
+                writeJSON(STORAGE.milestonesShown, shown);
+                break; // one toast per visit
+            }
+        }
     }
 
-    function isAnniversary() {
-        const now = new Date();
-        return now.getMonth() + 1 === PERSONAL.anniversary.month && now.getDate() === PERSONAL.anniversary.day;
+    function showMilestoneToast(text) {
+        const el = document.getElementById('milestone-toast');
+        if (!el) return;
+        el.textContent = text;
+        el.classList.add('milestone-toast--visible');
+        setTimeout(() => el.classList.remove('milestone-toast--visible'), 6000);
+    }
+
+    // -------- visit log + heatmap --------
+
+    function recordVisit() {
+        const visits = readJSON(STORAGE.visits, []) || [];
+        const today = getDateString();
+        if (!visits.includes(today)) {
+            visits.push(today);
+            writeJSON(STORAGE.visits, visits);
+        }
+        return visits;
+    }
+
+    function renderHeatmap(visits) {
+        const grid = document.getElementById('heatmap-grid');
+        const stats = document.getElementById('heatmap-stats');
+        if (!grid || !stats) return;
+
+        const visitSet = new Set(visits);
+        const today = new Date();
+        // Show last 12 weeks (84 days), aligned by weekday
+        const days = 84;
+        const cells = [];
+        for (let i = days - 1; i >= 0; i--) {
+            const d = new Date(today.getFullYear(), today.getMonth(), today.getDate() - i);
+            const ds = getDateString(d);
+            const visited = visitSet.has(ds);
+            const isToday = i === 0;
+            cells.push(`<i class="heatmap-cell${visited ? ' heatmap-cell--on' : ''}${isToday ? ' heatmap-cell--today' : ''}" title="${ds}${visited ? ' · here' : ''}"></i>`);
+        }
+        grid.innerHTML = cells.join('');
+
+        const last30 = Array.from({ length: 30 }, (_, i) => {
+            const d = new Date(today.getFullYear(), today.getMonth(), today.getDate() - i);
+            return getDateString(d);
+        }).filter((ds) => visitSet.has(ds)).length;
+
+        stats.textContent = `${visits.length} day${visits.length === 1 ? '' : 's'} altogether · ${last30} in the last 30`;
+    }
+
+    function wireHeatmapToggle() {
+        const btn = document.getElementById('heatmap-toggle');
+        const drawer = document.getElementById('heatmap-drawer');
+        if (!btn || !drawer) return;
+        btn.addEventListener('click', () => {
+            const open = drawer.classList.toggle('heatmap-drawer--open');
+            btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+            drawer.setAttribute('aria-hidden', open ? 'false' : 'true');
+            btn.classList.toggle('heatmap-toggle--open', open);
+        });
+    }
+
+    // -------- tarot --------
+
+    function renderTarot() {
+        const card = getDailyTarot();
+        document.getElementById('tarot-card-number').textContent = card.num;
+        document.getElementById('tarot-card-name').textContent = card.name;
+        document.getElementById('tarot-card-reading').textContent = card.reading;
+
+        const cardEl = document.getElementById('tarot-card');
+        if (!cardEl) return;
+
+        const today = getDateString();
+        const drawnKey = 'daily-stars:tarot-drawn';
+        const drawn = readJSON(drawnKey, null);
+        if (drawn === today) {
+            cardEl.classList.add('tarot-card--flipped');
+        }
+
+        const reveal = () => {
+            if (cardEl.classList.contains('tarot-card--flipped')) return;
+            cardEl.classList.add('tarot-card--flipped');
+            writeJSON(drawnKey, today);
+        };
+        cardEl.addEventListener('click', reveal);
+        cardEl.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                reveal();
+            }
+        });
+    }
+
+    // -------- lucky strip + moon --------
+
+    function renderMoon() {
+        const phase = getMoonPhase();
+        document.getElementById('moon-glyph').textContent = phase.glyph;
+        document.getElementById('moon-name').textContent = phase.name;
+
+        // Long-press easter egg → show full phase name with whisper
+        const item = document.getElementById('lucky-moon');
+        if (!item) return;
+        let timer = null;
+        const start = () => {
+            timer = setTimeout(() => {
+                item.classList.add('lucky-moon--whispered');
+                setTimeout(() => item.classList.remove('lucky-moon--whispered'), 3000);
+            }, 700);
+        };
+        const cancel = () => { if (timer) { clearTimeout(timer); timer = null; } };
+        item.addEventListener('mousedown', start);
+        item.addEventListener('touchstart', start, { passive: true });
+        item.addEventListener('mouseup', cancel);
+        item.addEventListener('mouseleave', cancel);
+        item.addEventListener('touchend', cancel);
+        item.addEventListener('touchcancel', cancel);
+    }
+
+    // -------- secrets: konami sequences --------
+
+    function wireDateTaps() {
+        const dateEl = document.getElementById('date');
+        if (!dateEl) return;
+        let count = 0;
+        let timer = null;
+        dateEl.addEventListener('click', () => {
+            count++;
+            if (timer) clearTimeout(timer);
+            timer = setTimeout(() => { count = 0; }, 1500);
+            if (count >= 7) {
+                count = 0;
+                showDaysTogether();
+            }
+        });
+    }
+
+    function showDaysTogether() {
+        // Picked an arbitrary anchor — set as you like later
+        const anchor = new Date(2018, 4, 31); // 2018-05-31, anniversary year
+        const today = new Date();
+        const days = daysBetween(anchor, today);
+        const note = document.getElementById('streak-note');
+        if (note) {
+            note.textContent = `${days.toLocaleString()} days woven together`;
+            note.classList.add('streak-note--visible');
+            setTimeout(() => note.classList.remove('streak-note--visible'), 5000);
+        }
+    }
+
+    function wireConstellationStars() {
+        const stars = document.querySelectorAll('#constellation-stars circle');
+        const lit = new Set(readJSON(STORAGE.starsLit, []) || []);
+        stars.forEach((star) => {
+            const id = star.dataset.star;
+            if (lit.has(id)) star.classList.add('star-lit');
+            star.style.pointerEvents = 'auto';
+            star.style.cursor = 'pointer';
+            star.addEventListener('click', () => {
+                if (lit.has(id)) return;
+                lit.add(id);
+                star.classList.add('star-lit');
+                writeJSON(STORAGE.starsLit, Array.from(lit));
+                if (lit.size === stars.length) {
+                    setTimeout(() => {
+                        const note = document.getElementById('streak-note');
+                        if (note) {
+                            note.textContent = 'the whole sky knows you now';
+                            note.classList.add('streak-note--visible');
+                            setTimeout(() => note.classList.remove('streak-note--visible'), 6000);
+                        }
+                    }, 400);
+                }
+            });
+        });
     }
 
     function spawnSwimFish(originRect) {
@@ -315,8 +588,8 @@
         el.classList.add('hidden-phrase--visible');
         document.body.classList.add('soften');
         try {
-            const found = parseInt(localStorage.getItem('daily-stars:secrets') || '0', 10);
-            localStorage.setItem('daily-stars:secrets', String(found + 1));
+            const found = parseInt(localStorage.getItem(STORAGE.secrets) || '0', 10);
+            localStorage.setItem(STORAGE.secrets, String(found + 1));
         } catch (e) { /* ignore */ }
         setTimeout(() => {
             el.classList.remove('hidden-phrase--visible');
@@ -343,6 +616,136 @@
         });
     }
 
+    // -------- bubble cursor trail --------
+
+    function wireCursorBubbles() {
+        if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+        if (matchMedia('(hover: none)').matches) return; // skip on touch devices
+
+        const layer = document.getElementById('cursor-bubbles');
+        if (!layer) return;
+        let last = 0;
+        document.addEventListener('mousemove', (e) => {
+            const now = Date.now();
+            if (now - last < 60) return;
+            last = now;
+            const b = document.createElement('span');
+            b.className = 'cursor-bubble';
+            const size = Math.random() * 8 + 4;
+            b.style.width = size + 'px';
+            b.style.height = size + 'px';
+            b.style.left = (e.clientX + (Math.random() - 0.5) * 12) + 'px';
+            b.style.top = (e.clientY + (Math.random() - 0.5) * 12) + 'px';
+            b.style.animationDuration = (1.4 + Math.random() * 0.6) + 's';
+            layer.appendChild(b);
+            setTimeout(() => b.remove(), 2200);
+        });
+    }
+
+    // -------- ambient sound --------
+
+    let audioCtx = null;
+    let audioNodes = null;
+    let soundOn = false;
+
+    function buildAmbientAudio() {
+        const Ctx = window.AudioContext || window.webkitAudioContext;
+        if (!Ctx) return null;
+        const ctx = new Ctx();
+        // Soft brown-noise underwater drone via filtered noise + slow LFO
+        const buffer = ctx.createBuffer(1, ctx.sampleRate * 2, ctx.sampleRate);
+        const data = buffer.getChannelData(0);
+        let lastOut = 0;
+        for (let i = 0; i < data.length; i++) {
+            const white = Math.random() * 2 - 1;
+            lastOut = (lastOut + 0.02 * white) / 1.02;
+            data[i] = lastOut * 3.5;
+        }
+        const noise = ctx.createBufferSource();
+        noise.buffer = buffer;
+        noise.loop = true;
+
+        const lp = ctx.createBiquadFilter();
+        lp.type = 'lowpass';
+        lp.frequency.value = 380;
+        lp.Q.value = 0.6;
+
+        const gain = ctx.createGain();
+        gain.gain.value = 0;
+
+        const lfo = ctx.createOscillator();
+        lfo.frequency.value = 0.08;
+        const lfoGain = ctx.createGain();
+        lfoGain.gain.value = 60;
+        lfo.connect(lfoGain).connect(lp.frequency);
+
+        noise.connect(lp).connect(gain).connect(ctx.destination);
+        noise.start();
+        lfo.start();
+        return { ctx, gain };
+    }
+
+    function setSound(on) {
+        soundOn = on;
+        const btn = document.getElementById('sound-toggle');
+        const icon = document.getElementById('sound-icon');
+        if (btn) btn.classList.toggle('sound-toggle--on', on);
+        if (icon) icon.textContent = on ? '𝄢' : '𝄞';
+        try { localStorage.setItem(STORAGE.sound, on ? '1' : '0'); } catch (e) { /* ignore */ }
+
+        if (on) {
+            if (!audioNodes) audioNodes = buildAmbientAudio();
+            if (!audioNodes) return;
+            if (audioNodes.ctx.state === 'suspended') audioNodes.ctx.resume();
+            audioNodes.gain.gain.cancelScheduledValues(audioNodes.ctx.currentTime);
+            audioNodes.gain.gain.linearRampToValueAtTime(0.18, audioNodes.ctx.currentTime + 1.2);
+        } else if (audioNodes) {
+            audioNodes.gain.gain.cancelScheduledValues(audioNodes.ctx.currentTime);
+            audioNodes.gain.gain.linearRampToValueAtTime(0, audioNodes.ctx.currentTime + 0.8);
+        }
+    }
+
+    function wireSoundToggle() {
+        const btn = document.getElementById('sound-toggle');
+        if (!btn) return;
+        btn.addEventListener('click', () => setSound(!soundOn));
+        // Don't auto-restore — autoplay needs a user gesture. Just remember preference visually.
+        const saved = localStorage.getItem(STORAGE.sound);
+        if (saved === '1') {
+            // Show as "off but remembered" — first click will start it
+            btn.classList.add('sound-toggle--remembered');
+        }
+    }
+
+    // -------- date modes --------
+
+    function applyDateMode() {
+        if (isBirthday()) {
+            document.body.classList.add('birthday-mode');
+            createConfetti();
+        }
+        if (isAnniversary()) {
+            document.body.classList.add('anniversary-mode');
+        }
+    }
+
+    function getModeGreeting() {
+        if (isBirthday()) return 'Happy birthday, Rong ♓ ✨';
+        return getGreeting();
+    }
+
+    function getModeQuote() {
+        if (isBirthday()) {
+            return { text: "Today the world made room for you. Take all of it.", author: 'für dich' };
+        }
+        if (isAnniversary()) {
+            return { text: "Two fish, one current. Same direction since the beginning.", author: 'uns' };
+        }
+        return getDailyQuote();
+    }
+
+    // -------- rendering --------
+
     function renderScores(scores) {
         const container = document.getElementById('scores');
         const maxScore = Math.max(...scores.map(s => s.score));
@@ -365,8 +768,8 @@
                     <div class="score-bar" data-score="${s.score}"></div>
                 </div>
                 <p class="score-flavor">${s.flavor}</p>
-            </div>
-        `}).join('');
+            </div>`;
+        }).join('');
 
         requestAnimationFrame(() => {
             setTimeout(() => {
@@ -379,9 +782,7 @@
 
     function createBubbles() {
         const container = document.getElementById('bubbles');
-        const count = 18;
-
-        for (let i = 0; i < count; i++) {
+        for (let i = 0; i < 18; i++) {
             const bubble = document.createElement('div');
             bubble.className = 'bubble';
             const size = Math.random() * 30 + 8;
@@ -398,8 +799,7 @@
         const container = document.getElementById('confetti');
         if (!container) return;
         const colors = ['#f7c948', '#f7a3b8', '#c5a3f7', '#7ecbf5', '#ffb997', '#fde68a'];
-        const count = 60;
-        for (let i = 0; i < count; i++) {
+        for (let i = 0; i < 60; i++) {
             const piece = document.createElement('span');
             piece.className = 'confetti-piece';
             piece.style.left = Math.random() * 100 + '%';
@@ -411,39 +811,23 @@
         }
     }
 
-    function applyDateMode() {
-        if (isBirthday()) {
-            document.body.classList.add('birthday-mode');
-            createConfetti();
-        }
-        if (isAnniversary()) {
-            document.body.classList.add('anniversary-mode');
-        }
+    // -------- service worker --------
+
+    function registerServiceWorker() {
+        if (!('serviceWorker' in navigator)) return;
+        if (location.protocol !== 'https:' && location.hostname !== 'localhost' && location.protocol !== 'file:') return;
+        if (location.protocol === 'file:') return; // SW doesn't work on file://
+        window.addEventListener('load', () => {
+            navigator.serviceWorker.register('sw.js').catch(() => { /* ignore */ });
+        });
     }
 
-    function getModeGreeting() {
-        if (isBirthday()) return 'Happy birthday, Rong ♓ ✨';
-        return getGreeting();
-    }
-
-    function getModeQuote() {
-        if (isBirthday()) {
-            return {
-                text: "Today the world made room for you. Take all of it.",
-                author: 'für dich'
-            };
-        }
-        if (isAnniversary()) {
-            return {
-                text: "Two fish, one current. Same direction since the beginning.",
-                author: 'uns'
-            };
-        }
-        return getDailyQuote();
-    }
+    // -------- init --------
 
     function init() {
+        applySeasonPalette();
         applyDateMode();
+
         document.getElementById('greeting').textContent = getModeGreeting();
         document.getElementById('date').textContent = getFormattedDate() + (isAnniversary() ? ' · our day' : '');
 
@@ -461,8 +845,25 @@
 
         renderScores(generateScores());
         createBubbles();
-        renderStreak();
+
+        const streak = updateStreak();
+        renderStreak(streak);
+        applyMilestones(streak.count);
+
+        const visits = recordVisit();
+        renderHeatmap(visits);
+        wireHeatmapToggle();
+
+        renderMoon();
+        renderTarot();
+
         wirePiscesTaps();
+        wireDateTaps();
+        wireConstellationStars();
+        wireCursorBubbles();
+        wireSoundToggle();
+
+        registerServiceWorker();
     }
 
     init();
