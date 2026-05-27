@@ -1,9 +1,9 @@
-const CACHE = 'daily-stars-v5';
+const CACHE = 'daily-stars-v6';
 const ASSETS = [
     './',
     './index.html',
-    './style.css?v=7',
-    './script.js?v=7',
+    './style.css?v=8',
+    './script.js?v=8',
     './manifest.json',
     './icon-192.png',
     './icon-512.png',
