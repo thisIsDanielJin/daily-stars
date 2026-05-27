@@ -565,26 +565,29 @@
     const FISH_GLYPHS = ['🐟', '🐠', '🐡', '🦈', '🐙', '🪼', '🐚', '🐬', '🦑', '🦀'];
 
     function spawnSwimFish(centerX, centerY, opts = {}) {
-        const fish = document.createElement('span');
-        fish.className = 'swim-fish';
-        fish.textContent = opts.glyph || FISH_GLYPHS[Math.floor(Math.random() * FISH_GLYPHS.length)];
+        const wrap = document.createElement('span');
+        wrap.className = 'swim-fish';
+        const inner = document.createElement('span');
+        inner.className = 'swim-fish__inner';
+        inner.textContent = opts.glyph || FISH_GLYPHS[Math.floor(Math.random() * FISH_GLYPHS.length)];
+        wrap.appendChild(inner);
         const direction = opts.direction || (Math.random() < 0.5 ? -1 : 1);
         const driftY = opts.driftY != null ? opts.driftY : (Math.random() - 0.5) * 260;
         const distance = window.innerWidth * (0.55 + Math.random() * 0.4) + 120;
         const duration = 1700 + Math.random() * 1500;
         const size = opts.size || (22 + Math.random() * 22);
-        const wave = 18 + Math.random() * 26;
-        fish.style.left = centerX + 'px';
-        fish.style.top = centerY + 'px';
-        fish.style.fontSize = size + 'px';
-        fish.style.setProperty('--swim-x', `${direction * distance}px`);
-        fish.style.setProperty('--swim-y', `${driftY}px`);
-        fish.style.setProperty('--swim-flip', direction === -1 ? '-1' : '1');
-        fish.style.setProperty('--swim-wave', `${wave}px`);
-        fish.style.animationDuration = duration + 'ms';
-        if (opts.delay) fish.style.animationDelay = opts.delay + 'ms';
-        document.body.appendChild(fish);
-        setTimeout(() => fish.remove(), duration + (opts.delay || 0) + 100);
+        wrap.style.left = centerX + 'px';
+        wrap.style.top = centerY + 'px';
+        wrap.style.fontSize = size + 'px';
+        wrap.style.setProperty('--swim-x', `${direction * distance}px`);
+        wrap.style.setProperty('--swim-y', `${driftY}px`);
+        wrap.style.animationDuration = duration + 'ms';
+        inner.style.setProperty('--fish-flip', direction === -1 ? '-1' : '1');
+        if (opts.delay) {
+            wrap.style.animationDelay = opts.delay + 'ms';
+        }
+        document.body.appendChild(wrap);
+        setTimeout(() => wrap.remove(), duration + (opts.delay || 0) + 100);
     }
 
     function spawnRipple(centerX, centerY, opts = {}) {
@@ -689,21 +692,20 @@
         spawnRipple(cx, cy);
 
         if (!reduced) {
-            spawnRipple(cx, cy, { delay: 140 });
-            spawnRipple(cx, cy, { delay: 280 });
-            spawnSparkles(cx, cy, 12 + intensity * 2);
-            spawnRisingBubbles(cx, cy, 8 + intensity * 2);
-            spawnDroplets(cx, cy, 10 + intensity * 2);
+            spawnRipple(cx, cy, { delay: 160 });
+            spawnSparkles(cx, cy, 6 + intensity);
+            spawnRisingBubbles(cx, cy, 4 + intensity);
+            spawnDroplets(cx, cy, 5 + intensity);
         }
 
-        const schoolSize = reduced ? 2 : 7 + intensity + Math.floor(Math.random() * 3);
+        const schoolSize = reduced ? 2 : 3 + intensity + Math.floor(Math.random() * 2);
         for (let i = 0; i < schoolSize; i++) {
             const dir = i % 2 === 0 ? 1 : -1;
             spawnSwimFish(cx, cy, {
                 direction: dir,
-                driftY: (Math.random() - 0.5) * 280,
-                delay: i * 60,
-                size: 24 + Math.random() * 26
+                driftY: (Math.random() - 0.5) * 260,
+                delay: i * 70,
+                size: 24 + Math.random() * 22
             });
         }
 
