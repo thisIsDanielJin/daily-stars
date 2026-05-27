@@ -745,8 +745,10 @@
         const taps = [];
         const WINDOW_MS = 3000;
         const REQUIRED = 5;
+        let lastTouchAt = 0;
 
-        glyph.addEventListener('click', () => {
+        const handleTap = (e) => {
+            if (e.cancelable) e.preventDefault();
             piscesSplash(glyph.getBoundingClientRect());
             const now = Date.now();
             taps.push(now);
@@ -755,6 +757,16 @@
                 taps.length = 0;
                 showHiddenPhrase();
             }
+        };
+
+        glyph.addEventListener('touchstart', (e) => {
+            lastTouchAt = Date.now();
+            handleTap(e);
+        }, { passive: false });
+
+        glyph.addEventListener('click', (e) => {
+            if (Date.now() - lastTouchAt < 600) return;
+            handleTap(e);
         });
     }
 

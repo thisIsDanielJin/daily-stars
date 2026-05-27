@@ -377,6 +377,8 @@ body.milestone-4::before {
     cursor: pointer;
     user-select: none;
     -webkit-user-select: none;
+    -webkit-tap-highlight-color: transparent;
+    touch-action: manipulation;
     transition: transform 0.15s ease;
 }
 
@@ -525,7 +527,7 @@ body.milestone-4::before {
     90% { transform: translate(1px, 2px); }
 }
 
-body.screen-shake {
+body.screen-shake .container {
     animation: screen-shake 0.5s ease-in-out;
 }
 
