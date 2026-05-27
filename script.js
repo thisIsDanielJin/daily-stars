@@ -562,23 +562,86 @@
         });
     }
 
-    function spawnSwimFish(originRect) {
+    const FISH_GLYPHS = ['🐟', '🐠', '🐡', '🦈'];
+
+    function spawnSwimFish(centerX, centerY, opts = {}) {
         const fish = document.createElement('span');
         fish.className = 'swim-fish';
-        fish.textContent = Math.random() < 0.5 ? '🐟' : '🐠';
-        const startX = originRect ? originRect.left + originRect.width / 2 : window.innerWidth / 2;
-        const startY = originRect ? originRect.top + originRect.height / 2 : 100;
-        const driftY = (Math.random() - 0.5) * 120;
-        const direction = Math.random() < 0.5 ? -1 : 1;
-        const duration = 2400 + Math.random() * 1200;
-        fish.style.left = startX + 'px';
-        fish.style.top = startY + 'px';
-        fish.style.setProperty('--swim-x', `${direction * (window.innerWidth * 0.7 + 100)}px`);
+        fish.textContent = opts.glyph || FISH_GLYPHS[Math.floor(Math.random() * FISH_GLYPHS.length)];
+        const direction = opts.direction || (Math.random() < 0.5 ? -1 : 1);
+        const driftY = opts.driftY != null ? opts.driftY : (Math.random() - 0.5) * 220;
+        const distance = window.innerWidth * (0.6 + Math.random() * 0.35) + 100;
+        const duration = 1800 + Math.random() * 1400;
+        const size = opts.size || (22 + Math.random() * 18);
+        fish.style.left = centerX + 'px';
+        fish.style.top = centerY + 'px';
+        fish.style.fontSize = size + 'px';
+        fish.style.setProperty('--swim-x', `${direction * distance}px`);
         fish.style.setProperty('--swim-y', `${driftY}px`);
         fish.style.setProperty('--swim-flip', direction === -1 ? '-1' : '1');
         fish.style.animationDuration = duration + 'ms';
+        if (opts.delay) fish.style.animationDelay = opts.delay + 'ms';
         document.body.appendChild(fish);
-        setTimeout(() => fish.remove(), duration + 100);
+        setTimeout(() => fish.remove(), duration + (opts.delay || 0) + 100);
+    }
+
+    function spawnRipple(centerX, centerY) {
+        const ring = document.createElement('span');
+        ring.className = 'tap-ripple';
+        ring.style.left = centerX + 'px';
+        ring.style.top = centerY + 'px';
+        document.body.appendChild(ring);
+        setTimeout(() => ring.remove(), 1100);
+    }
+
+    function spawnSparkles(centerX, centerY, count) {
+        const glyphs = ['✦', '✧', '⋆', '✺', '·'];
+        for (let i = 0; i < count; i++) {
+            const s = document.createElement('span');
+            s.className = 'tap-sparkle';
+            s.textContent = glyphs[Math.floor(Math.random() * glyphs.length)];
+            const angle = (Math.PI * 2 * i) / count + Math.random() * 0.6;
+            const dist = 60 + Math.random() * 90;
+            const dx = Math.cos(angle) * dist;
+            const dy = Math.sin(angle) * dist;
+            s.style.left = centerX + 'px';
+            s.style.top = centerY + 'px';
+            s.style.setProperty('--sx', dx + 'px');
+            s.style.setProperty('--sy', dy + 'px');
+            s.style.fontSize = (10 + Math.random() * 14) + 'px';
+            s.style.animationDelay = (Math.random() * 80) + 'ms';
+            document.body.appendChild(s);
+            setTimeout(() => s.remove(), 1200);
+        }
+    }
+
+    function piscesSplash(originRect) {
+        const cx = originRect ? originRect.left + originRect.width / 2 : window.innerWidth / 2;
+        const cy = originRect ? originRect.top + originRect.height / 2 : 100;
+        const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+        spawnRipple(cx, cy);
+        if (!reduced) {
+            spawnRipple(cx, cy);
+            setTimeout(() => spawnRipple(cx, cy), 180);
+            spawnSparkles(cx, cy, 10);
+        }
+        const schoolSize = reduced ? 2 : 5 + Math.floor(Math.random() * 3);
+        for (let i = 0; i < schoolSize; i++) {
+            const dir = i % 2 === 0 ? 1 : -1;
+            spawnSwimFish(cx, cy, {
+                direction: dir,
+                driftY: (Math.random() - 0.5) * 240,
+                delay: i * 90,
+                size: 22 + Math.random() * 22
+            });
+        }
+        const glyph = document.getElementById('pisces-symbol');
+        if (glyph) {
+            glyph.classList.remove('pisces-symbol--burst');
+            void glyph.offsetWidth;
+            glyph.classList.add('pisces-symbol--burst');
+            setTimeout(() => glyph.classList.remove('pisces-symbol--burst'), 700);
+        }
     }
 
     function showHiddenPhrase() {
@@ -605,7 +668,7 @@
         const REQUIRED = 5;
 
         glyph.addEventListener('click', () => {
-            spawnSwimFish(glyph.getBoundingClientRect());
+            piscesSplash(glyph.getBoundingClientRect());
             const now = Date.now();
             taps.push(now);
             while (taps.length && now - taps[0] > WINDOW_MS) taps.shift();

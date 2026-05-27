@@ -382,6 +382,55 @@ body.milestone-4::before {
 
 .pisces-symbol:active { transform: scale(0.92); }
 
+.pisces-symbol--burst {
+    animation: pisces-burst 0.7s ease-out, gentle-glow 3s ease-in-out infinite, wiggle 6s ease-in-out infinite;
+    filter: drop-shadow(0 0 32px rgba(220, 180, 255, 0.95)) drop-shadow(0 0 48px rgba(180, 140, 255, 0.6));
+}
+
+@keyframes pisces-burst {
+    0%   { transform: scale(0.92); }
+    25%  { transform: scale(1.28) rotate(-6deg); }
+    55%  { transform: scale(1.12) rotate(5deg); }
+    100% { transform: scale(1) rotate(0); }
+}
+
+.tap-ripple {
+    position: fixed;
+    width: 12px;
+    height: 12px;
+    margin-left: -6px;
+    margin-top: -6px;
+    border-radius: 50%;
+    border: 2px solid rgba(220, 200, 255, 0.85);
+    box-shadow: 0 0 18px rgba(200, 170, 255, 0.55);
+    pointer-events: none;
+    z-index: 4;
+    animation: ripple-out 1s cubic-bezier(0.2, 0.7, 0.3, 1) forwards;
+    will-change: transform, opacity;
+}
+
+@keyframes ripple-out {
+    0%   { opacity: 0.9; transform: scale(0.4); }
+    60%  { opacity: 0.5; }
+    100% { opacity: 0; transform: scale(18); border-width: 0.5px; }
+}
+
+.tap-sparkle {
+    position: fixed;
+    pointer-events: none;
+    z-index: 6;
+    color: #fff;
+    text-shadow: 0 0 8px rgba(255, 220, 255, 0.9), 0 0 16px rgba(200, 170, 255, 0.6);
+    animation: sparkle-fly 1.05s ease-out forwards;
+    will-change: transform, opacity;
+}
+
+@keyframes sparkle-fly {
+    0%   { opacity: 0; transform: translate(0, 0) scale(0.4) rotate(0deg); }
+    20%  { opacity: 1; }
+    100% { opacity: 0; transform: translate(var(--sx, 0), var(--sy, 0)) scale(1.1) rotate(180deg); }
+}
+
 .swim-fish {
     position: fixed;
     font-size: 28px;
