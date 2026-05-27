@@ -562,85 +562,164 @@
         });
     }
 
-    const FISH_GLYPHS = ['🐟', '🐠', '🐡', '🦈'];
+    const FISH_GLYPHS = ['🐟', '🐠', '🐡', '🦈', '🐙', '🪼', '🐚', '🐬', '🦑', '🦀'];
 
     function spawnSwimFish(centerX, centerY, opts = {}) {
         const fish = document.createElement('span');
         fish.className = 'swim-fish';
         fish.textContent = opts.glyph || FISH_GLYPHS[Math.floor(Math.random() * FISH_GLYPHS.length)];
         const direction = opts.direction || (Math.random() < 0.5 ? -1 : 1);
-        const driftY = opts.driftY != null ? opts.driftY : (Math.random() - 0.5) * 220;
-        const distance = window.innerWidth * (0.6 + Math.random() * 0.35) + 100;
-        const duration = 1800 + Math.random() * 1400;
-        const size = opts.size || (22 + Math.random() * 18);
+        const driftY = opts.driftY != null ? opts.driftY : (Math.random() - 0.5) * 260;
+        const distance = window.innerWidth * (0.55 + Math.random() * 0.4) + 120;
+        const duration = 1700 + Math.random() * 1500;
+        const size = opts.size || (22 + Math.random() * 22);
+        const wave = 18 + Math.random() * 26;
         fish.style.left = centerX + 'px';
         fish.style.top = centerY + 'px';
         fish.style.fontSize = size + 'px';
         fish.style.setProperty('--swim-x', `${direction * distance}px`);
         fish.style.setProperty('--swim-y', `${driftY}px`);
         fish.style.setProperty('--swim-flip', direction === -1 ? '-1' : '1');
+        fish.style.setProperty('--swim-wave', `${wave}px`);
         fish.style.animationDuration = duration + 'ms';
         if (opts.delay) fish.style.animationDelay = opts.delay + 'ms';
         document.body.appendChild(fish);
         setTimeout(() => fish.remove(), duration + (opts.delay || 0) + 100);
     }
 
-    function spawnRipple(centerX, centerY) {
+    function spawnRipple(centerX, centerY, opts = {}) {
         const ring = document.createElement('span');
         ring.className = 'tap-ripple';
+        if (opts.color) ring.style.borderColor = opts.color;
         ring.style.left = centerX + 'px';
         ring.style.top = centerY + 'px';
+        if (opts.delay) ring.style.animationDelay = opts.delay + 'ms';
         document.body.appendChild(ring);
-        setTimeout(() => ring.remove(), 1100);
+        setTimeout(() => ring.remove(), 1200 + (opts.delay || 0));
     }
 
     function spawnSparkles(centerX, centerY, count) {
-        const glyphs = ['✦', '✧', '⋆', '✺', '·'];
+        const glyphs = ['✦', '✧', '⋆', '✺', '·', '✩', '❋', '⁕'];
         for (let i = 0; i < count; i++) {
             const s = document.createElement('span');
             s.className = 'tap-sparkle';
             s.textContent = glyphs[Math.floor(Math.random() * glyphs.length)];
             const angle = (Math.PI * 2 * i) / count + Math.random() * 0.6;
-            const dist = 60 + Math.random() * 90;
+            const dist = 70 + Math.random() * 140;
             const dx = Math.cos(angle) * dist;
             const dy = Math.sin(angle) * dist;
             s.style.left = centerX + 'px';
             s.style.top = centerY + 'px';
             s.style.setProperty('--sx', dx + 'px');
             s.style.setProperty('--sy', dy + 'px');
-            s.style.fontSize = (10 + Math.random() * 14) + 'px';
-            s.style.animationDelay = (Math.random() * 80) + 'ms';
+            s.style.fontSize = (10 + Math.random() * 18) + 'px';
+            s.style.animationDelay = (Math.random() * 120) + 'ms';
             document.body.appendChild(s);
-            setTimeout(() => s.remove(), 1200);
+            setTimeout(() => s.remove(), 1400);
         }
     }
+
+    function spawnDroplets(centerX, centerY, count) {
+        for (let i = 0; i < count; i++) {
+            const d = document.createElement('span');
+            d.className = 'tap-droplet';
+            const angle = -Math.PI / 2 + (Math.random() - 0.5) * Math.PI * 1.1;
+            const speed = 140 + Math.random() * 220;
+            const dx = Math.cos(angle) * speed;
+            const dy = Math.sin(angle) * speed;
+            const fall = 380 + Math.random() * 240;
+            const size = 6 + Math.random() * 8;
+            d.style.left = centerX + 'px';
+            d.style.top = centerY + 'px';
+            d.style.width = size + 'px';
+            d.style.height = (size * 1.3) + 'px';
+            d.style.setProperty('--dx', dx + 'px');
+            d.style.setProperty('--dy', dy + 'px');
+            d.style.setProperty('--df', fall + 'px');
+            d.style.animationDelay = (Math.random() * 60) + 'ms';
+            document.body.appendChild(d);
+            setTimeout(() => d.remove(), 1800);
+        }
+    }
+
+    function spawnRisingBubbles(centerX, centerY, count) {
+        for (let i = 0; i < count; i++) {
+            const b = document.createElement('span');
+            b.className = 'tap-bubble';
+            const size = 8 + Math.random() * 22;
+            const offsetX = (Math.random() - 0.5) * 80;
+            const drift = (Math.random() - 0.5) * 140;
+            const rise = 240 + Math.random() * 220;
+            b.style.left = (centerX + offsetX) + 'px';
+            b.style.top = centerY + 'px';
+            b.style.width = size + 'px';
+            b.style.height = size + 'px';
+            b.style.setProperty('--rise', '-' + rise + 'px');
+            b.style.setProperty('--bx', drift + 'px');
+            b.style.animationDuration = (1400 + Math.random() * 800) + 'ms';
+            b.style.animationDelay = (Math.random() * 200) + 'ms';
+            document.body.appendChild(b);
+            setTimeout(() => b.remove(), 2700);
+        }
+    }
+
+    function spawnFlash(centerX, centerY) {
+        const f = document.createElement('span');
+        f.className = 'tap-flash';
+        f.style.left = centerX + 'px';
+        f.style.top = centerY + 'px';
+        document.body.appendChild(f);
+        setTimeout(() => f.remove(), 700);
+    }
+
+    let comboCount = 0;
+    let comboTimer = null;
 
     function piscesSplash(originRect) {
         const cx = originRect ? originRect.left + originRect.width / 2 : window.innerWidth / 2;
         const cy = originRect ? originRect.top + originRect.height / 2 : 100;
         const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+        comboCount = Math.min(comboCount + 1, 5);
+        clearTimeout(comboTimer);
+        comboTimer = setTimeout(() => { comboCount = 0; }, 1400);
+        const intensity = comboCount;
+
+        spawnFlash(cx, cy);
         spawnRipple(cx, cy);
+
         if (!reduced) {
-            spawnRipple(cx, cy);
-            setTimeout(() => spawnRipple(cx, cy), 180);
-            spawnSparkles(cx, cy, 10);
+            spawnRipple(cx, cy, { delay: 140 });
+            spawnRipple(cx, cy, { delay: 280 });
+            spawnSparkles(cx, cy, 12 + intensity * 2);
+            spawnRisingBubbles(cx, cy, 8 + intensity * 2);
+            spawnDroplets(cx, cy, 10 + intensity * 2);
         }
-        const schoolSize = reduced ? 2 : 5 + Math.floor(Math.random() * 3);
+
+        const schoolSize = reduced ? 2 : 7 + intensity + Math.floor(Math.random() * 3);
         for (let i = 0; i < schoolSize; i++) {
             const dir = i % 2 === 0 ? 1 : -1;
             spawnSwimFish(cx, cy, {
                 direction: dir,
-                driftY: (Math.random() - 0.5) * 240,
-                delay: i * 90,
-                size: 22 + Math.random() * 22
+                driftY: (Math.random() - 0.5) * 280,
+                delay: i * 60,
+                size: 24 + Math.random() * 26
             });
         }
+
         const glyph = document.getElementById('pisces-symbol');
         if (glyph) {
             glyph.classList.remove('pisces-symbol--burst');
             void glyph.offsetWidth;
             glyph.classList.add('pisces-symbol--burst');
-            setTimeout(() => glyph.classList.remove('pisces-symbol--burst'), 700);
+            setTimeout(() => glyph.classList.remove('pisces-symbol--burst'), 800);
+        }
+
+        if (!reduced && intensity >= 3) {
+            document.body.classList.remove('screen-shake');
+            void document.body.offsetWidth;
+            document.body.classList.add('screen-shake');
+            setTimeout(() => document.body.classList.remove('screen-shake'), 500);
         }
     }
 
