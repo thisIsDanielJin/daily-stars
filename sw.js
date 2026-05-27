@@ -1,12 +1,13 @@
-const CACHE = 'daily-stars-v1';
+const CACHE = 'daily-stars-v2';
 const ASSETS = [
     './',
     './index.html',
-    './style.css?v=3',
-    './script.js?v=3',
+    './style.css?v=4',
+    './script.js?v=4',
     './manifest.json',
     './icon-192.png',
-    './icon-512.png'
+    './icon-512.png',
+    './apple-touch-icon.png'
 ];
 
 self.addEventListener('install', (e) => {
