@@ -401,22 +401,23 @@ body.soften .pisces-symbol {
 .mood-label {
     text-align: center;
     font-family: 'Cormorant Garamond', Georgia, serif;
-    font-size: 0.85rem;
+    font-size: 1.15rem;
     font-weight: 400;
     font-style: italic;
-    color: #b09ac7;
-    letter-spacing: 0.5px;
-    margin-bottom: 0;
+    color: #9785b3;
+    letter-spacing: 1.2px;
+    text-transform: uppercase;
+    margin-bottom: 6px;
     animation: fade-in 0.8s ease-out 0.25s backwards;
 }
 
 .mood-word {
     font-family: 'Cormorant Garamond', Georgia, serif;
     text-align: center;
-    font-size: 4.6rem;
+    font-size: 5.6rem;
     font-weight: 500;
     font-style: italic;
-    margin: 0 0 28px;
+    margin: 0 0 36px;
     background: linear-gradient(135deg, #7c4dbd, #5ba8d4, #c5a3f7);
     background-size: 200% 200%;
     -webkit-background-clip: text;
@@ -686,7 +687,7 @@ body.soften .pisces-symbol {
         font-size: 1.7rem;
     }
     .mood-word {
-        font-size: 3.6rem;
+        font-size: 4.4rem;
     }
     .pisces-symbol {
         font-size: 44px;
