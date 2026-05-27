@@ -139,7 +139,17 @@
 
     function getDateString() {
         const now = new Date();
-        return `${now.getFullYear()}-${now.getMonth() + 1}-${now.getDate()}`;
+        const m = String(now.getMonth() + 1).padStart(2, '0');
+        const d = String(now.getDate()).padStart(2, '0');
+        return `${now.getFullYear()}-${m}-${d}`;
+    }
+
+    function parseDateString(str) {
+        if (typeof str !== 'string') return null;
+        const parts = str.split('-').map(Number);
+        if (parts.length !== 3 || parts.some(isNaN)) return null;
+        const [y, m, d] = parts;
+        return new Date(y, m - 1, d);
     }
 
     function getFormattedDate() {
@@ -229,8 +239,8 @@
             const raw = localStorage.getItem(STORAGE_KEY);
             if (raw) {
                 const saved = JSON.parse(raw);
-                const last = new Date(saved.lastDate);
-                if (!isNaN(last)) {
+                const last = parseDateString(saved.lastDate);
+                if (last) {
                     const gap = daysBetween(last, today);
                     if (gap === 0) {
                         count = saved.count || 1;
@@ -239,6 +249,9 @@
                     } else if (gap > 1) {
                         count = 1;
                         resetMessage = 'the tide always returns';
+                    } else {
+                        // gap < 0 (clock moved backward) — keep existing count, don't increment
+                        count = saved.count || 1;
                     }
                 }
             }
