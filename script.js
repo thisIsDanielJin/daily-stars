@@ -565,29 +565,47 @@
     const FISH_GLYPHS = ['🐟', '🐠', '🐡', '🦈', '🐙', '🪼', '🐚', '🐬', '🦑', '🦀'];
 
     function spawnSwimFish(centerX, centerY, opts = {}) {
-        const wrap = document.createElement('span');
-        wrap.className = 'swim-fish';
-        const inner = document.createElement('span');
-        inner.className = 'swim-fish__inner';
-        inner.textContent = opts.glyph || FISH_GLYPHS[Math.floor(Math.random() * FISH_GLYPHS.length)];
-        wrap.appendChild(inner);
+        const fish = document.createElement('span');
+        fish.className = 'swim-fish';
+        fish.textContent = opts.glyph || FISH_GLYPHS[Math.floor(Math.random() * FISH_GLYPHS.length)];
         const direction = opts.direction || (Math.random() < 0.5 ? -1 : 1);
         const driftY = opts.driftY != null ? opts.driftY : (Math.random() - 0.5) * 260;
         const distance = window.innerWidth * (0.55 + Math.random() * 0.4) + 120;
         const duration = 1700 + Math.random() * 1500;
         const size = opts.size || (22 + Math.random() * 22);
-        wrap.style.left = centerX + 'px';
-        wrap.style.top = centerY + 'px';
-        wrap.style.fontSize = size + 'px';
-        wrap.style.setProperty('--swim-x', `${direction * distance}px`);
-        wrap.style.setProperty('--swim-y', `${driftY}px`);
-        wrap.style.animationDuration = duration + 'ms';
-        inner.style.setProperty('--fish-flip', direction === -1 ? '-1' : '1');
-        if (opts.delay) {
-            wrap.style.animationDelay = opts.delay + 'ms';
-        }
-        document.body.appendChild(wrap);
-        setTimeout(() => wrap.remove(), duration + (opts.delay || 0) + 100);
+        const flip = direction === -1 ? -1 : 1;
+        fish.style.left = centerX + 'px';
+        fish.style.top = centerY + 'px';
+        fish.style.fontSize = size + 'px';
+        fish.style.position = 'fixed';
+        fish.style.zIndex = '5';
+        fish.style.pointerEvents = 'none';
+        fish.style.willChange = 'transform, opacity';
+        fish.style.transform = `translate(0, 0) scaleX(${flip})`;
+        fish.style.opacity = '0';
+        document.body.appendChild(fish);
+
+        const xs = [0, 0.25, 0.5, 0.75, 1].map(t => direction * distance * t);
+        const ys = [0, driftY * 0.25, driftY * 0.5, driftY * 0.75, driftY];
+        const wave = [-12, 12, -12, 12, 0];
+        const rot = [-6, 6, -6, 6, 0];
+        const keyframes = xs.map((x, i) => ({
+            transform: `translate(${x}px, ${ys[i] + wave[i]}px) scaleX(${flip}) rotate(${rot[i]}deg)`,
+            opacity: i === 0 || i === 4 ? 0 : 1,
+            offset: i / 4
+        }));
+
+        const start = () => {
+            const anim = fish.animate(keyframes, {
+                duration,
+                easing: 'cubic-bezier(0.25, 0.46, 0.45, 0.94)',
+                fill: 'forwards'
+            });
+            anim.onfinish = () => fish.remove();
+        };
+
+        if (opts.delay) setTimeout(start, opts.delay);
+        else start();
     }
 
     function spawnRipple(centerX, centerY, opts = {}) {
